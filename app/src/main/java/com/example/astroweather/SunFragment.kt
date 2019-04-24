@@ -29,16 +29,18 @@ class SunFragment : Fragment() {
         fragmentView = inflater.inflate(R.layout.fragment_sun, container, false)
 
         lateinit var astroCalculatorLocation: AstroCalculator.Location
-        astroCalculatorLocation = AstroCalculator.Location(-50.0,15.0)
+        astroCalculatorLocation = AstroCalculator.Location(52.14,21.01)
 
-        val astroDateTime: AstroDateTime = AstroDateTime()
-        astroDateTime.day = 24
-        astroDateTime.month = 4
+        val astroDateTime = AstroDateTime()
+        astroDateTime.day = 31
+        astroDateTime.month = 1
         astroDateTime.year = 2019
 
         val astroCalculator = AstroCalculator(astroDateTime,astroCalculatorLocation)
         Log.i("AstroCalc SUN RISE",astroCalculator.sunInfo.sunrise.toString())
         Log.i("AstroCalc SUN SET",astroCalculator.sunInfo.sunset.toString())
+        Log.i("AstroCalc CIV SUN RISE",astroCalculator.sunInfo.twilightMorning.toString())
+        Log.i("AstroCalc CIV SUN SET",astroCalculator.sunInfo.twilightEvening.toString())
         return fragmentView
     }
 
