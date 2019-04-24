@@ -61,10 +61,20 @@
             android:id="@+id/textView10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Najbliższy nów i pełnia"
+            android:text="Najbliższy nów"
             android:textAlignment="center"
             android:textSize="18sp"/>
 
+    <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView" android:textStyle="bold"
+            android:textAlignment="center" android:textSize="24sp"/>
+    <TextView
+            android:text="Najbliższa pełnia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textViewww" android:textAlignment="center"
+            android:textSize="18sp"/>
     <TextView
             android:id="@+id/textView11"
             android:layout_width="match_parent"
