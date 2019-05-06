@@ -23,6 +23,11 @@ import java.util.*
 class MoonFragment : Fragment() {
 
     lateinit var fragmentView: View
+    lateinit var longitudeMoon: TextView
+    lateinit var latitudeMoon: TextView
+    lateinit var moonRise: TextView
+    lateinit var moonSet: TextView
+    lateinit var nextNewMoon: TextView
 
     fun initTextViews(){
     }
@@ -47,23 +52,26 @@ class MoonFragment : Fragment() {
         Log.i("AstroCalc MOON",astroCalculator.moonInfo.nextFullMoon.toString())
         Log.i("AstroCalc MOON",astroCalculator.moonInfo.illumination.toString())
 
+        //clock part
+        val sdf = SimpleDateFormat("HH:mm:ss")
 
+        Thread(Runnable {
+            while (true){
+                var currentDate = sdf.format(Date())
+                currentDate = sdf.format(Date())
 
-//        activity!!.runOnUiThread { Runnable {
-//            while (true){
-//                Thread.sleep(1000)
-//                actualTime.setText(currentDate)
-//            }
-//        } }
+                activity!!.runOnUiThread {
+                    actualTimeMoon.text = currentDate.toString()
+                }
+                Thread.sleep(1000)
+            }
+        }).start()
 
-       // TimerSetup1(context!!).execute()
 
         return fragmentView
     }
 
     public fun update(text: String){
-        activity!!.actualTimeMoon.setText(text)
+        activity!!.actualTimeMoon.text = text
     }
-
-
 }

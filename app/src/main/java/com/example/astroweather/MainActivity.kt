@@ -27,12 +27,6 @@ class MainActivity : AppCompatActivity() {
             fragmentColleactionAdapter = FragmentCollectionAdapter(supportFragmentManager)
             viewPager.adapter = fragmentColleactionAdapter
         }
-
-        val moonFragment: MoonFragment = MoonFragment()
-        val sunFragment: SunFragment = SunFragment()
-
-        moonFragment.update("aaa")
-        sunFragment.update("vvv")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

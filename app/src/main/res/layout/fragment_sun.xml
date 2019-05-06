@@ -17,6 +17,41 @@
             android:textAlignment="center"
             android:textSize="48sp"
             android:textStyle="bold"/>
+
+    <TextView
+            android:id="@+id/longitudeSun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+    <TextView
+            android:id="@+id/dlugosc_geograficznaSun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Długość geograficzna"
+            android:textAlignment="center"
+            android:textSize="18sp"/>
+
+    <TextView
+            android:id="@+id/latitudeSun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+    <TextView
+            android:id="@+id/szerokosc_geograficznaSun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Szczerokość geograficzna"
+            android:textAlignment="center"
+            android:textSize="18sp"/>
+
     <TextView
             android:id="@+id/sunRise"
             android:layout_width="match_parent"

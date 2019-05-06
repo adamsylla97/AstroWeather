@@ -24,12 +24,17 @@ class SunFragment : Fragment() {
     lateinit var sunSet: TextView
     lateinit var sunCivRise: TextView
     lateinit var sunCivSet: TextView
+    lateinit var longitudeSun: TextView
+    lateinit var latitudeSun: TextView
+
 
     fun initTextViews(){
         sunRise = fragmentView.findViewById(R.id.sunRise)
         sunSet = fragmentView.findViewById(R.id.sunSet)
         sunCivRise = fragmentView.findViewById(R.id.sunCivRise)
         sunCivSet = fragmentView.findViewById(R.id.sunCivSet)
+        longitudeSun = fragmentView.findViewById(R.id.longitudeSun)
+        latitudeSun = fragmentView.findViewById(R.id.latitudeSun)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -38,8 +43,11 @@ class SunFragment : Fragment() {
 
         initTextViews()
 
+        var latitudeData: Double = 52.14
+        var longitudeData: Double = 21.01
+
         lateinit var astroCalculatorLocation: AstroCalculator.Location
-        astroCalculatorLocation = AstroCalculator.Location(52.14,21.01)
+        astroCalculatorLocation = AstroCalculator.Location(latitudeData,longitudeData)
 
         val astroDateTime = AstroDateTime()
         astroDateTime.day = 24
@@ -52,6 +60,12 @@ class SunFragment : Fragment() {
         Log.i("AstroCalc CIV SUN RISE",astroCalculator.sunInfo.twilightMorning.toString())
         Log.i("AstroCalc CIV SUN SET",astroCalculator.sunInfo.twilightEvening.toString())
 
+
+
+        longitudeSun.text = longitudeData.toString()
+        latitudeSun.text = latitudeData.toString()
+
+
         var temp: List<String>? = null
         temp = astroCalculator.sunInfo.sunrise.toString().split(" ")
         sunRise.text = temp[1]
@@ -62,7 +76,20 @@ class SunFragment : Fragment() {
         temp = astroCalculator.sunInfo.twilightEvening.toString().split(" ")
         sunCivSet.text = temp[1]
 
-        //TimerSetup(context!!).execute()
+        //clock part
+        val sdf = SimpleDateFormat("HH:mm:ss")
+
+        Thread(Runnable {
+            while (true){
+                var currentDate = sdf.format(Date())
+                currentDate = sdf.format(Date())
+
+                activity!!.runOnUiThread {
+                    actualTimeSun.text = currentDate.toString()
+                }
+                Thread.sleep(1000)
+            }
+        }).start()
 
         return fragmentView
     }
@@ -70,7 +97,4 @@ class SunFragment : Fragment() {
     public fun update(text: String){
         activity!!.actualTimeSun.setText(text)
     }
-
-
-
 }
