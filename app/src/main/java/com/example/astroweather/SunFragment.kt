@@ -50,9 +50,11 @@ class SunFragment : Fragment() {
         astroCalculatorLocation = AstroCalculator.Location(latitudeData,longitudeData)
 
         val astroDateTime = AstroDateTime()
-        astroDateTime.day = 24
-        astroDateTime.month = 12
+        astroDateTime.day = 6
+        astroDateTime.month = 5
         astroDateTime.year = 2019
+        astroDateTime.timezoneOffset = 1
+        astroDateTime.isDaylightSaving = true
 
         val astroCalculator = AstroCalculator(astroDateTime,astroCalculatorLocation)
         Log.i("AstroCalc SUN RISE",astroCalculator.sunInfo.sunrise.toString())

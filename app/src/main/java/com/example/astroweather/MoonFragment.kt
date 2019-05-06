@@ -1,8 +1,5 @@
 package com.example.astroweather
 
-
-import android.content.Context
-import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -13,10 +10,7 @@ import android.widget.TextView
 import com.astrocalculator.AstroCalculator
 import com.astrocalculator.AstroDateTime
 import kotlinx.android.synthetic.main.fragment_moon.*
-import kotlinx.android.synthetic.main.fragment_sun.*
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -30,6 +24,7 @@ class MoonFragment : Fragment() {
     lateinit var nextNewMoon: TextView
     lateinit var nextFullMoon: TextView
     lateinit var illumination: TextView
+    lateinit var synodicDay: TextView
 
     fun initTextViews(){
         longitudeMoon = fragmentView.findViewById(R.id.longitudeMoon)
@@ -39,6 +34,7 @@ class MoonFragment : Fragment() {
         nextNewMoon = fragmentView.findViewById(R.id.nextNewMoon)
         nextFullMoon = fragmentView.findViewById(R.id.nextFullMoon)
         illumination = fragmentView.findViewById(R.id.illumination)
+        synodicDay = fragmentView.findViewById(R.id.synodicDay)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -52,10 +48,16 @@ class MoonFragment : Fragment() {
         lateinit var astroCalculatorLocation: AstroCalculator.Location
         astroCalculatorLocation = AstroCalculator.Location(latitudeData,longitudeData)
 
-        val astroDateTime = AstroDateTime(2019,5,3,20,43,11,1,true)
-        astroDateTime.day = 3
-        astroDateTime.month = 5
+       // val astroDateTime = AstroDateTime(2019,5,6,20,43,11,0,true)
+        val astroDateTime = AstroDateTime()
+        astroDateTime.day = 24
+        astroDateTime.month = 4
         astroDateTime.year = 2019
+        astroDateTime.hour = 20
+        astroDateTime.minute = 26
+        astroDateTime.second = 42
+        astroDateTime.timezoneOffset = 1
+        astroDateTime.isDaylightSaving = true
 
         val astroCalculator = AstroCalculator(astroDateTime,astroCalculatorLocation)
         Log.i("AstroCalc MOON",astroCalculator.moonInfo.moonrise.toString())
@@ -76,7 +78,11 @@ class MoonFragment : Fragment() {
         nextNewMoon.text = temp[0] + " " + temp[1]
         temp = astroCalculator.moonInfo.nextFullMoon.toString().split(" ")
         nextFullMoon.text = temp[0] + " " + temp[1]
-        illumination.text = astroCalculator.moonInfo.illumination.toString()
+        var tempIllumination: Double = astroCalculator.moonInfo.illumination
+        tempIllumination = tempIllumination*100
+        synodicDay.text = astroCalculator.moonInfo.age.toString()
+
+        illumination.text = tempIllumination.toString().substring(0,4) + "%"
 
         //clock part
         val sdf = SimpleDateFormat("HH:mm:ss")
