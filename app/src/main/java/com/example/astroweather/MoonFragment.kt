@@ -28,8 +28,17 @@ class MoonFragment : Fragment() {
     lateinit var moonRise: TextView
     lateinit var moonSet: TextView
     lateinit var nextNewMoon: TextView
+    lateinit var nextFullMoon: TextView
+    lateinit var illumination: TextView
 
     fun initTextViews(){
+        longitudeMoon = fragmentView.findViewById(R.id.longitudeMoon)
+        latitudeMoon = fragmentView.findViewById(R.id.latitudeMoon)
+        moonRise = fragmentView.findViewById(R.id.moonRise)
+        moonSet = fragmentView.findViewById(R.id.moonSet)
+        nextNewMoon = fragmentView.findViewById(R.id.nextNewMoon)
+        nextFullMoon = fragmentView.findViewById(R.id.nextFullMoon)
+        illumination = fragmentView.findViewById(R.id.illumination)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -37,8 +46,11 @@ class MoonFragment : Fragment() {
 
         initTextViews()
 
+        var latitudeData: Double = 52.14
+        var longitudeData: Double = 21.01
+
         lateinit var astroCalculatorLocation: AstroCalculator.Location
-        astroCalculatorLocation = AstroCalculator.Location(52.14,21.01)
+        astroCalculatorLocation = AstroCalculator.Location(latitudeData,longitudeData)
 
         val astroDateTime = AstroDateTime(2019,5,3,20,43,11,1,true)
         astroDateTime.day = 3
@@ -51,6 +63,20 @@ class MoonFragment : Fragment() {
         Log.i("AstroCalc MOON",astroCalculator.moonInfo.nextNewMoon.toString())
         Log.i("AstroCalc MOON",astroCalculator.moonInfo.nextFullMoon.toString())
         Log.i("AstroCalc MOON",astroCalculator.moonInfo.illumination.toString())
+
+        longitudeMoon.text = longitudeData.toString()
+        latitudeMoon.text = latitudeData.toString()
+
+        var temp: List<String>? = null
+        temp = astroCalculator.moonInfo.moonrise.toString().split(" ")
+        moonRise.text = temp[1]
+        temp = astroCalculator.moonInfo.moonset.toString().split(" ")
+        moonSet.text = temp[1]
+        temp = astroCalculator.moonInfo.nextNewMoon.toString().split(" ")
+        nextNewMoon.text = temp[0] + " " + temp[1]
+        temp = astroCalculator.moonInfo.nextFullMoon.toString().split(" ")
+        nextFullMoon.text = temp[0] + " " + temp[1]
+        illumination.text = astroCalculator.moonInfo.illumination.toString()
 
         //clock part
         val sdf = SimpleDateFormat("HH:mm:ss")
