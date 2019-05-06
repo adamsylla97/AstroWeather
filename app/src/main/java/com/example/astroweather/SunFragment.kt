@@ -1,6 +1,8 @@
 package com.example.astroweather
 
 
+import android.content.Context
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -10,17 +12,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.astrocalculator.AstroCalculator
 import com.astrocalculator.AstroDateTime
+import kotlinx.android.synthetic.main.fragment_moon.*
+import kotlinx.android.synthetic.main.fragment_sun.*
+import java.text.SimpleDateFormat
+import java.util.*
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class SunFragment : Fragment() {
 
     lateinit var fragmentView: View
@@ -66,8 +62,15 @@ class SunFragment : Fragment() {
         temp = astroCalculator.sunInfo.twilightEvening.toString().split(" ")
         sunCivSet.text = temp[1]
 
+        //TimerSetup(context!!).execute()
+
         return fragmentView
     }
+
+    public fun update(text: String){
+        activity!!.actualTimeSun.setText(text)
+    }
+
 
 
 }

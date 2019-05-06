@@ -9,18 +9,14 @@
       android:background="#F5E30D"
       android:orientation="vertical">
 
-    <Space
+    <TextView
+            android:text=""
             android:layout_width="match_parent"
-            android:layout_height="20dp"/>
-    <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:src="@drawable/ic_wb_sunny_black_24dp" />
-
-    <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/actualTimeSun"
+            android:textAlignment="center"
+            android:textSize="48sp"
+            android:textStyle="bold"/>
     <TextView
             android:id="@+id/sunRise"
             android:layout_width="match_parent"

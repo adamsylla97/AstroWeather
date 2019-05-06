@@ -8,12 +8,14 @@
               android:background="#B9B9B9"
               tools:context=".MoonFragment">
 
-    <ImageView
-            android:id="@+id/imageView3"
+    <TextView
+            android:text=""
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:src="@drawable/moon2" />
-
+            android:layout_height="wrap_content"
+            android:id="@+id/actualTimeMoon"
+            android:textAlignment="center"
+            android:textSize="48sp"
+            android:textStyle="bold"/>
     <TextView
             android:id="@+id/textView7"
             android:layout_width="match_parent"
