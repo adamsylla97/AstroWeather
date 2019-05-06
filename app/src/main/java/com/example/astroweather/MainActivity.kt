@@ -1,6 +1,7 @@
 package com.example.astroweather
 
 import android.content.Context
+import android.content.Intent
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -37,30 +38,9 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val id = item?.itemId
         if(id == R.id.settings){
-            Log.i("Settings","settings button clicked")
+            var i:Intent = Intent(this,PopSettings::class.java)
+            startActivity(i)
         }
         return super.onOptionsItemSelected(item)
     }
-
-//    private inner class TimerSetup(c: Context) : AsyncTask<Void, Void, String>(){
-//        override fun doInBackground(vararg params: Void?): String? {
-//
-//            val sdf = SimpleDateFormat("HH:mm:ss")
-//            var currentDate = sdf.format(Date())
-//
-//            while(true){
-//                Log.i("time sun",currentDate)
-//
-//                Thread.sleep(1000)
-//                currentDate = sdf.format(Date())
-//                //actualTime.setText(currentDate)
-//                activity!!.runOnUiThread {
-//                    actualTime.setText(currentDate)
-//                }
-//            }
-//
-//            return null
-//        }
-//
-//    }
 }
