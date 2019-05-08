@@ -8,8 +8,7 @@ import android.support.v7.app.AppCompatDialogFragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.*
 import java.lang.Exception
 
 class PopSettings : AppCompatDialogFragment() {
@@ -17,6 +16,8 @@ class PopSettings : AppCompatDialogFragment() {
     lateinit var longitudeSettings: EditText
     lateinit var latitudeSettings: EditText
     lateinit var settingsSpinner: Spinner
+    var listOfItems = arrayOf("15 minut","30 minut", "1 godzina", "3 godziny", "6 godzin")
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         var builder: AlertDialog.Builder = AlertDialog.Builder(activity)
@@ -34,15 +35,27 @@ class PopSettings : AppCompatDialogFragment() {
                 Log.i("new latitude",validatedData[1].toString())
                 Config.longitude = validatedData[0]
                 Config.latitude = validatedData[1]
-
                 Log.i("config longi",Config.longitude.toString())
                 Log.i("config latit",Config.latitude.toString())
+                Log.i("config inva",Config.invalidData.toString())
 
             })
 
         longitudeSettings = view.findViewById(R.id.longitudeSettings)
         latitudeSettings = view.findViewById(R.id.latitudeSettings)
         settingsSpinner = view.findViewById(R.id.settingsSpinner)
+
+        settingsSpinner.adapter = ArrayAdapter(view.context,android.R.layout.simple_spinner_dropdown_item, listOfItems)
+        settingsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                Toast.makeText(view!!.context,listOfItems[position], Toast.LENGTH_LONG).show()
+            }
+
+        }
 
         return builder.create()
     }

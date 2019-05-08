@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.astrocalculator.AstroCalculator
 import com.astrocalculator.AstroDateTime
 import kotlinx.android.synthetic.main.fragment_moon.*
 import org.joda.time.DateTime
 import org.joda.time.Days
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.time.temporal.ChronoUnit
 import java.util.*
@@ -79,7 +81,7 @@ class MoonFragment : Fragment() {
 
                 activity!!.runOnUiThread {
                     actualTimeMoon.text = currentDate.toString()
-                    if(longitudeData!= Config.longitude || latitudeData!= Config.latitude){
+                    if((longitudeData!= Config.longitude || latitudeData!= Config.latitude) && Config.invalidData == false){
                         latitudeData = Config.latitude
                         longitudeData = Config.longitude
                         update()
@@ -94,28 +96,35 @@ class MoonFragment : Fragment() {
     }
 
     private fun update(){
-        astroCalculatorLocation = AstroCalculator.Location(latitudeData,longitudeData)
-        astroCalculator = AstroCalculator(astroDateTime,astroCalculatorLocation)
+        try{
+            astroCalculatorLocation = AstroCalculator.Location(latitudeData,longitudeData)
+            astroCalculator = AstroCalculator(astroDateTime,astroCalculatorLocation)
 
-        longitudeMoon.text = longitudeData.toString()
-        latitudeMoon.text = latitudeData.toString()
+            longitudeMoon.text = longitudeData.toString()
+            latitudeMoon.text = latitudeData.toString()
 
-        var temp: List<String>? = null
-        temp = astroCalculator.moonInfo.moonrise.toString().split(" ")
-        moonRise.text = temp[1]
-        temp = astroCalculator.moonInfo.moonset.toString().split(" ")
-        moonSet.text = temp[1]
-        temp = astroCalculator.moonInfo.nextNewMoon.toString().split(" ")
-        nextNewMoon.text = temp[0] + " " + temp[1]
-        temp = astroCalculator.moonInfo.nextFullMoon.toString().split(" ")
-        nextFullMoon.text = temp[0] + " " + temp[1]
-        var tempIllumination: Double = astroCalculator.moonInfo.illumination
-        tempIllumination = tempIllumination*100
-        synodicDay.text = getSynodicDay()
+            var temp: List<String>? = null
+            temp = astroCalculator.moonInfo.moonrise.toString().split(" ")
+            moonRise.text = temp[1]
+            temp = astroCalculator.moonInfo.moonset.toString().split(" ")
+            moonSet.text = temp[1]
+            temp = astroCalculator.moonInfo.nextNewMoon.toString().split(" ")
+            nextNewMoon.text = temp[0] + " " + temp[1]
+            temp = astroCalculator.moonInfo.nextFullMoon.toString().split(" ")
+            nextFullMoon.text = temp[0] + " " + temp[1]
+            var tempIllumination: Double = astroCalculator.moonInfo.illumination
+            tempIllumination = tempIllumination*100
+            synodicDay.text = getSynodicDay()
 
-        illumination.text = tempIllumination.toString().substring(0,4) + "%"
+            illumination.text = tempIllumination.toString().substring(0,4) + "%"
 
-        getSynodicDay()
+            getSynodicDay()
+
+            Config.invalidData = false
+        }catch (e: Exception){
+            Toast.makeText(context,"Niedozwolone dane",Toast.LENGTH_LONG).show()
+            Config.invalidData = true
+        }
     }
 
     private fun getSynodicDay(): String{
@@ -133,9 +142,7 @@ class MoonFragment : Fragment() {
         var tempList: List<String>
         tempList = newMoon.split(" ",".")
         Log.i("tempList",tempList[0]+ " " + tempList[1] + " " + tempList[2])
-        //var start: DateTime = DateTime(tempList[2].toInt(),tempList[1].toInt(),tempList[0].toInt(),0,0,0,0)
-        var start: DateTime = DateTime(2019,6,3,0,0,0,0)
-        //nastepny now: 03.06.2019
+        var start: DateTime = DateTime(tempList[2].toInt(),tempList[1].toInt(),tempList[0].toInt(),0,0,0,0)
         tempList = currentDate.split(" ",".")
         var end: DateTime = DateTime(tempList[2].toInt(),tempList[1].toInt(),tempList[0].toInt(),0,0,0,0)
         difference = Days.daysBetween(start,end).toString()

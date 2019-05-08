@@ -70,7 +70,7 @@ class SunFragment : Fragment() {
                 currentDate = sdf.format(Date())
 
                 activity!!.runOnUiThread {
-                    if(longitudeData!= Config.longitude || latitudeData!= Config.latitude){
+                    if((longitudeData!= Config.longitude || latitudeData!= Config.latitude) && Config.invalidData == false ){
                         latitudeData = Config.latitude
                         longitudeData = Config.longitude
                         update()
