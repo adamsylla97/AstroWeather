@@ -1,18 +1,13 @@
 package com.example.astroweather
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AppCompatDialogFragment
-import android.util.DisplayMetrics
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.view.WindowManager
 import android.widget.EditText
 import android.widget.Spinner
 import java.lang.Exception
@@ -37,11 +32,11 @@ class PopSettings : AppCompatDialogFragment() {
                 var validatedData: List<Double> = validateData(longitude,latitude)
                 Log.i("new longitude",validatedData[0].toString())
                 Log.i("new latitude",validatedData[1].toString())
-                Config.longitudeSafe = validatedData[0]
-                Config.latitudeSafe = validatedData[1]
+                Config.longitude = validatedData[0]
+                Config.latitude = validatedData[1]
 
-                Log.i("config longi",Config.longitudeSafe.toString())
-                Log.i("config latit",Config.latitudeSafe.toString())
+                Log.i("config longi",Config.longitude.toString())
+                Log.i("config latit",Config.latitude.toString())
 
             })
 
@@ -59,8 +54,8 @@ class PopSettings : AppCompatDialogFragment() {
             validatedData.set(1,latitude.toDouble())
         }catch (e: Exception){
             Log.i("ERROR POPSETTINGS","niepoprawne dane")
-            validatedData.set(0,Config.longitudeSafe)
-            validatedData.set(1,Config.latitudeSafe)
+            validatedData.set(0,Config.longitude)
+            validatedData.set(1,Config.latitude)
         }
         return validatedData
     }

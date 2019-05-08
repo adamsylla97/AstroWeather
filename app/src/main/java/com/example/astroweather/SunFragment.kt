@@ -1,8 +1,6 @@
 package com.example.astroweather
 
 
-import android.content.Context
-import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -12,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.astrocalculator.AstroCalculator
 import com.astrocalculator.AstroDateTime
-import kotlinx.android.synthetic.main.fragment_moon.*
 import kotlinx.android.synthetic.main.fragment_sun.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,8 +36,8 @@ class SunFragment : Fragment() {
 
     lateinit var astroCalculator: AstroCalculator
     lateinit var astroCalculatorLocation: AstroCalculator.Location
-    var latitudeData: Double = Config.latitudeSafe
-    var longitudeData: Double = Config.longitudeSafe
+    var latitudeData: Double = Config.latitude
+    var longitudeData: Double = Config.longitude
     val astroDateTime = AstroDateTime()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -73,9 +70,9 @@ class SunFragment : Fragment() {
                 currentDate = sdf.format(Date())
 
                 activity!!.runOnUiThread {
-                    if(longitudeData!= Config.longitudeSafe || latitudeData!= Config.latitudeSafe){
-                        latitudeData = Config.latitudeSafe
-                        longitudeData = Config.longitudeSafe
+                    if(longitudeData!= Config.longitude || latitudeData!= Config.latitude){
+                        latitudeData = Config.latitude
+                        longitudeData = Config.longitude
                         update()
                     }
                     actualTimeSun.text = currentDate.toString()

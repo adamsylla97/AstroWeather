@@ -37,19 +37,18 @@ class MoonFragment : Fragment() {
         synodicDay = fragmentView.findViewById(R.id.synodicDay)
     }
 
+    lateinit var astroCalculatorLocation: AstroCalculator.Location
+    lateinit var astroCalculator: AstroCalculator
+    var latitudeData: Double = Config.latitude
+    var longitudeData: Double = Config.longitude
+    val astroDateTime = AstroDateTime()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         fragmentView = inflater.inflate(R.layout.fragment_moon, container, false)
 
         initTextViews()
 
-        var latitudeData: Double = 52.14
-        var longitudeData: Double = 21.01
-
-        lateinit var astroCalculatorLocation: AstroCalculator.Location
-        astroCalculatorLocation = AstroCalculator.Location(latitudeData,longitudeData)
-
        // val astroDateTime = AstroDateTime(2019,5,6,20,43,11,0,true)
-        val astroDateTime = AstroDateTime()
         astroDateTime.day = 24
         astroDateTime.month = 4
         astroDateTime.year = 2019
@@ -59,12 +58,41 @@ class MoonFragment : Fragment() {
         astroDateTime.timezoneOffset = 1
         astroDateTime.isDaylightSaving = true
 
-        val astroCalculator = AstroCalculator(astroDateTime,astroCalculatorLocation)
+        update()
+
         Log.i("AstroCalc MOON",astroCalculator.moonInfo.moonrise.toString())
         Log.i("AstroCalc MOON",astroCalculator.moonInfo.moonset.toString())
         Log.i("AstroCalc MOON",astroCalculator.moonInfo.nextNewMoon.toString())
         Log.i("AstroCalc MOON",astroCalculator.moonInfo.nextFullMoon.toString())
         Log.i("AstroCalc MOON",astroCalculator.moonInfo.illumination.toString())
+
+        //clock part
+        val sdf = SimpleDateFormat("HH:mm:ss")
+
+        Thread(Runnable {
+            while (true){
+                var currentDate = sdf.format(Date())
+                currentDate = sdf.format(Date())
+
+                activity!!.runOnUiThread {
+                    actualTimeMoon.text = currentDate.toString()
+                    if(longitudeData!= Config.longitude || latitudeData!= Config.latitude){
+                        latitudeData = Config.latitude
+                        longitudeData = Config.longitude
+                        update()
+                    }
+                }
+                Thread.sleep(1000)
+            }
+        }).start()
+
+
+        return fragmentView
+    }
+
+    public fun update(){
+        astroCalculatorLocation = AstroCalculator.Location(latitudeData,longitudeData)
+        astroCalculator = AstroCalculator(astroDateTime,astroCalculatorLocation)
 
         longitudeMoon.text = longitudeData.toString()
         latitudeMoon.text = latitudeData.toString()
@@ -83,27 +111,5 @@ class MoonFragment : Fragment() {
         synodicDay.text = astroCalculator.moonInfo.age.toString()
 
         illumination.text = tempIllumination.toString().substring(0,4) + "%"
-
-        //clock part
-        val sdf = SimpleDateFormat("HH:mm:ss")
-
-        Thread(Runnable {
-            while (true){
-                var currentDate = sdf.format(Date())
-                currentDate = sdf.format(Date())
-
-                activity!!.runOnUiThread {
-                    actualTimeMoon.text = currentDate.toString()
-                }
-                Thread.sleep(1000)
-            }
-        }).start()
-
-
-        return fragmentView
-    }
-
-    public fun update(text: String){
-        activity!!.actualTimeMoon.text = text
     }
 }
