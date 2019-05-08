@@ -1,30 +1,43 @@
 package com.example.astroweather
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatDialogFragment
 import android.util.DisplayMetrics
 import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
 import android.view.WindowManager
+import android.widget.EditText
+import android.widget.Spinner
 
-class PopSettings : Activity() {
+class PopSettings : AppCompatDialogFragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pop_settings)
+    lateinit var longitudeSettings: EditText
+    lateinit var latitudeSettings: EditText
+    lateinit var settingsSpinner: Spinner
 
-        var dm:DisplayMetrics = DisplayMetrics()
-        windowManager.defaultDisplay.getMetrics(dm)
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        var builder: AlertDialog.Builder = AlertDialog.Builder(activity)
+        var inflater: LayoutInflater = activity!!.layoutInflater
+        var view: View = inflater.inflate(R.layout.activity_pop_settings,null)
+        builder.setView(view)
+            .setNegativeButton("cancel",{dialogInterface: DialogInterface, i: Int ->
 
-        var width = dm.widthPixels
-        var height = dm.heightPixels
+            })
+            .setPositiveButton("ok",{dialog: DialogInterface?, which: Int ->
 
-        window.setLayout((width*8),(height*7))
 
-        var params: WindowManager.LayoutParams = window.attributes
-        params.gravity = Gravity.CENTER
-        params.x = 0
-        params.y = -20
-        window.attributes = params
+            })
+
+        longitudeSettings = view.findViewById(R.id.longitudeSettings)
+        latitudeSettings = view.findViewById(R.id.latitudeSettings)
+        settingsSpinner = view.findViewById(R.id.settingsSpinner)
+
+        return builder.create()
     }
 }

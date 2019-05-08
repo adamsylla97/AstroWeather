@@ -38,9 +38,15 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val id = item?.itemId
         if(id == R.id.settings){
-            var i:Intent = Intent(this,PopSettings::class.java)
-            startActivity(i)
+//            var i:Intent = Intent(this,PopSettings::class.java)
+//            startActivity(i)
+            openDialog()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun openDialog() {
+        var popSettings: PopSettings = PopSettings()
+        popSettings.show(supportFragmentManager, "example dialog")
     }
 }
