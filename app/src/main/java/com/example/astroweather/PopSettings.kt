@@ -59,8 +59,8 @@ class PopSettings : AppCompatDialogFragment() {
             validatedData.set(1,latitude.toDouble())
         }catch (e: Exception){
             Log.i("ERROR POPSETTINGS","niepoprawne dane")
-            validatedData.set(0,21.01)
-            validatedData.set(1,52.14)
+            validatedData.set(0,Config.longitudeSafe)
+            validatedData.set(1,Config.latitudeSafe)
         }
         return validatedData
     }

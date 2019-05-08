@@ -37,46 +37,32 @@ class SunFragment : Fragment() {
         latitudeSun = fragmentView.findViewById(R.id.latitudeSun)
     }
 
+    lateinit var astroCalculator: AstroCalculator
+    lateinit var astroCalculatorLocation: AstroCalculator.Location
+    var latitudeData: Double = Config.latitudeSafe
+    var longitudeData: Double = Config.longitudeSafe
+    val astroDateTime = AstroDateTime()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         fragmentView = inflater.inflate(R.layout.fragment_sun, container, false)
 
         initTextViews()
 
-        var latitudeData: Double = Config.latitudeSafe
-        var longitudeData: Double = Config.longitudeSafe
-
-        lateinit var astroCalculatorLocation: AstroCalculator.Location
         astroCalculatorLocation = AstroCalculator.Location(latitudeData,longitudeData)
 
-        val astroDateTime = AstroDateTime()
         astroDateTime.day = 6
         astroDateTime.month = 5
         astroDateTime.year = 2019
         astroDateTime.timezoneOffset = 1
         astroDateTime.isDaylightSaving = true
 
-        val astroCalculator = AstroCalculator(astroDateTime,astroCalculatorLocation)
+        update()
+
         Log.i("AstroCalc SUN RISE",astroCalculator.sunInfo.sunrise.toString())
         Log.i("AstroCalc SUN SET",astroCalculator.sunInfo.sunset.toString())
         Log.i("AstroCalc CIV SUN RISE",astroCalculator.sunInfo.twilightMorning.toString())
         Log.i("AstroCalc CIV SUN SET",astroCalculator.sunInfo.twilightEvening.toString())
-
-
-
-        longitudeSun.text = longitudeData.toString()
-        latitudeSun.text = latitudeData.toString()
-
-
-        var temp: List<String>? = null
-        temp = astroCalculator.sunInfo.sunrise.toString().split(" ")
-        sunRise.text = temp[1]
-        temp = astroCalculator.sunInfo.sunset.toString().split(" ")
-        sunSet.text = temp[1]
-        temp = astroCalculator.sunInfo.twilightMorning.toString().split(" ")
-        sunCivRise.text = temp[1]
-        temp = astroCalculator.sunInfo.twilightEvening.toString().split(" ")
-        sunCivSet.text = temp[1]
 
         //clock part
         val sdf = SimpleDateFormat("HH:mm:ss")
@@ -87,6 +73,11 @@ class SunFragment : Fragment() {
                 currentDate = sdf.format(Date())
 
                 activity!!.runOnUiThread {
+                    if(longitudeData!= Config.longitudeSafe || latitudeData!= Config.latitudeSafe){
+                        latitudeData = Config.latitudeSafe
+                        longitudeData = Config.longitudeSafe
+                        update()
+                    }
                     actualTimeSun.text = currentDate.toString()
                 }
                 Thread.sleep(1000)
@@ -96,7 +87,19 @@ class SunFragment : Fragment() {
         return fragmentView
     }
 
-    public fun update(text: String){
-        activity!!.actualTimeSun.setText(text)
+    public fun update(){
+        astroCalculatorLocation = AstroCalculator.Location(latitudeData,longitudeData)
+        astroCalculator = AstroCalculator(astroDateTime,astroCalculatorLocation)
+        longitudeSun.text = longitudeData.toString()
+        latitudeSun.text = latitudeData.toString()
+        var temp: List<String>? = null
+        temp = astroCalculator.sunInfo.sunrise.toString().split(" ")
+        sunRise.text = temp[1]
+        temp = astroCalculator.sunInfo.sunset.toString().split(" ")
+        sunSet.text = temp[1]
+        temp = astroCalculator.sunInfo.twilightMorning.toString().split(" ")
+        sunCivRise.text = temp[1]
+        temp = astroCalculator.sunInfo.twilightEvening.toString().split(" ")
+        sunCivSet.text = temp[1]
     }
 }
