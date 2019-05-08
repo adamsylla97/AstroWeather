@@ -8,12 +8,14 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AppCompatDialogFragment
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.Spinner
+import java.lang.Exception
 
 class PopSettings : AppCompatDialogFragment() {
 
@@ -30,7 +32,16 @@ class PopSettings : AppCompatDialogFragment() {
 
             })
             .setPositiveButton("ok",{dialog: DialogInterface?, which: Int ->
+                var longitude: String = longitudeSettings.text.toString()
+                var latitude: String = latitudeSettings.text.toString()
+                var validatedData: List<Double> = validateData(longitude,latitude)
+                Log.i("new longitude",validatedData[0].toString())
+                Log.i("new latitude",validatedData[1].toString())
+                Config.longitudeSafe = validatedData[0]
+                Config.latitudeSafe = validatedData[1]
 
+                Log.i("config longi",Config.longitudeSafe.toString())
+                Log.i("config latit",Config.latitudeSafe.toString())
 
             })
 
@@ -40,4 +51,18 @@ class PopSettings : AppCompatDialogFragment() {
 
         return builder.create()
     }
+
+    fun validateData(longitude: String, latitude: String): List<Double>{
+        var validatedData: MutableList<Double> = mutableListOf(0.0,0.0)
+        try{
+            validatedData.set(0,longitude.toDouble())
+            validatedData.set(1,latitude.toDouble())
+        }catch (e: Exception){
+            Log.i("ERROR POPSETTINGS","niepoprawne dane")
+            validatedData.set(0,21.01)
+            validatedData.set(1,52.14)
+        }
+        return validatedData
+    }
+
 }

@@ -43,8 +43,8 @@ class SunFragment : Fragment() {
 
         initTextViews()
 
-        var latitudeData: Double = 52.14
-        var longitudeData: Double = 21.01
+        var latitudeData: Double = Config.latitudeSafe
+        var longitudeData: Double = Config.longitudeSafe
 
         lateinit var astroCalculatorLocation: AstroCalculator.Location
         astroCalculatorLocation = AstroCalculator.Location(latitudeData,longitudeData)
