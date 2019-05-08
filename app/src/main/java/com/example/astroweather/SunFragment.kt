@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.astrocalculator.AstroCalculator
 import com.astrocalculator.AstroDateTime
 import kotlinx.android.synthetic.main.fragment_sun.*
@@ -65,6 +66,7 @@ class SunFragment : Fragment() {
         val sdf = SimpleDateFormat("HH:mm:ss")
 
         Thread(Runnable {
+            var iterator: Int = 0
             while (true){
                 var currentDate = sdf.format(Date())
                 currentDate = sdf.format(Date())
@@ -75,9 +77,15 @@ class SunFragment : Fragment() {
                         longitudeData = Config.longitude
                         update()
                     }
+                    if(iterator > Config.refreshRate){
+                        update()
+                        Toast.makeText(view!!.context,"refreshed",Toast.LENGTH_LONG).show()
+                        iterator = 0
+                    }
                     actualTimeSun.text = currentDate.toString()
                 }
                 Thread.sleep(1000)
+                iterator ++
             }
         }).start()
 

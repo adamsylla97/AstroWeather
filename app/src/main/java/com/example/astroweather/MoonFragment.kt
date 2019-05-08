@@ -75,6 +75,7 @@ class MoonFragment : Fragment() {
         val sdf = SimpleDateFormat("HH:mm:ss")
 
         Thread(Runnable {
+            var iterator: Int = 0
             while (true){
                 var currentDate = sdf.format(Date())
                 currentDate = sdf.format(Date())
@@ -86,8 +87,14 @@ class MoonFragment : Fragment() {
                         longitudeData = Config.longitude
                         update()
                     }
+                    if(iterator > Config.refreshRate){
+                        update()
+                        Toast.makeText(view!!.context,"refreshed",Toast.LENGTH_LONG).show()
+                        iterator = 0
+                    }
                 }
                 Thread.sleep(1000)
+                iterator++
             }
         }).start()
 

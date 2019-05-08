@@ -17,6 +17,7 @@ class PopSettings : AppCompatDialogFragment() {
     lateinit var latitudeSettings: EditText
     lateinit var settingsSpinner: Spinner
     var listOfItems = arrayOf("15 minut","30 minut", "1 godzina", "3 godziny", "6 godzin")
+    var refreshRate: Int = 0
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -38,6 +39,8 @@ class PopSettings : AppCompatDialogFragment() {
                 Log.i("config longi",Config.longitude.toString())
                 Log.i("config latit",Config.latitude.toString())
                 Log.i("config inva",Config.invalidData.toString())
+                Config.refreshRate = refreshRate
+                Log.i("config refresh",Config.refreshRate.toString())
 
             })
 
@@ -48,11 +51,19 @@ class PopSettings : AppCompatDialogFragment() {
         settingsSpinner.adapter = ArrayAdapter(view.context,android.R.layout.simple_spinner_dropdown_item, listOfItems)
         settingsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 Toast.makeText(view!!.context,listOfItems[position], Toast.LENGTH_LONG).show()
+                when(position){
+                    0 -> refreshRate = 900
+                    1 -> refreshRate = 1800
+                    2 -> refreshRate = 3600
+                    3 -> refreshRate = 10800
+                    4 -> refreshRate = 21600
+
+
+                }
             }
 
         }
