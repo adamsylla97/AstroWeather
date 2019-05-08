@@ -12,6 +12,8 @@ import android.widget.Toast
 import com.astrocalculator.AstroCalculator
 import com.astrocalculator.AstroDateTime
 import kotlinx.android.synthetic.main.fragment_sun.*
+import org.joda.time.DateTime
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -49,9 +51,6 @@ class SunFragment : Fragment() {
 
         astroCalculatorLocation = AstroCalculator.Location(latitudeData,longitudeData)
 
-        astroDateTime.day = 6
-        astroDateTime.month = 5
-        astroDateTime.year = 2019
         astroDateTime.timezoneOffset = 1
         astroDateTime.isDaylightSaving = true
 
@@ -71,21 +70,22 @@ class SunFragment : Fragment() {
                 var currentDate = sdf.format(Date())
                 currentDate = sdf.format(Date())
 
-                activity!!.runOnUiThread {
-                    if((longitudeData!= Config.longitude || latitudeData!= Config.latitude) && Config.invalidData == false ){
-                        latitudeData = Config.latitude
-                        longitudeData = Config.longitude
-                        update()
-                    }
-                    if(iterator > Config.refreshRate){
-                        update()
-                        Toast.makeText(view!!.context,"refreshed",Toast.LENGTH_LONG).show()
-                        iterator = 0
-                    }
-                    actualTimeSun.text = currentDate.toString()
-                }
-                Thread.sleep(1000)
-                iterator ++
+               activity!!.runOnUiThread {
+                   if((longitudeData!= Config.longitude || latitudeData!= Config.latitude) && Config.invalidData == false ){
+                       latitudeData = Config.latitude
+                       longitudeData = Config.longitude
+                       update()
+                   }
+                   if(iterator > Config.refreshRate){
+                       update()
+                       Toast.makeText(view!!.context,"refreshed",Toast.LENGTH_LONG).show()
+                       iterator = 0
+                   }
+                   actualTimeSun.text = currentDate.toString()
+               }
+               Thread.sleep(1000)
+               iterator ++
+
             }
         }).start()
 
@@ -93,6 +93,16 @@ class SunFragment : Fragment() {
     }
 
     public fun update(){
+        val sdf: SimpleDateFormat = SimpleDateFormat("dd.M.yyyy HH:mm:ss")
+        val currentDate = sdf.format(Date())
+        Log.i("date time sun",currentDate)
+        var tempList: List<String> = currentDate.split(" ", ".",":")
+        astroDateTime.day = tempList[0].toInt()
+        astroDateTime.month = tempList[1].toInt()
+        astroDateTime.year = tempList[2].toInt()
+        astroDateTime.hour = tempList[3].toInt()
+        astroDateTime.minute = tempList[4].toInt()
+        astroDateTime.second = tempList[5].toInt()
         astroCalculatorLocation = AstroCalculator.Location(latitudeData,longitudeData)
         astroCalculator = AstroCalculator(astroDateTime,astroCalculatorLocation)
         longitudeSun.text = longitudeData.toString()

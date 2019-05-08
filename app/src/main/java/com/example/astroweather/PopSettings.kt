@@ -61,8 +61,6 @@ class PopSettings : AppCompatDialogFragment() {
                     2 -> refreshRate = 3600
                     3 -> refreshRate = 10800
                     4 -> refreshRate = 21600
-
-
                 }
             }
 

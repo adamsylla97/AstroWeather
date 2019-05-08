@@ -53,13 +53,6 @@ class MoonFragment : Fragment() {
 
         initTextViews()
 
-       // val astroDateTime = AstroDateTime(2019,5,6,20,43,11,0,true)
-        astroDateTime.day = 8
-        astroDateTime.month = 5
-        astroDateTime.year = 2019
-        astroDateTime.hour = 20
-        astroDateTime.minute = 26
-        astroDateTime.second = 42
         astroDateTime.timezoneOffset = 1
         astroDateTime.isDaylightSaving = true
 
@@ -104,6 +97,16 @@ class MoonFragment : Fragment() {
 
     private fun update(){
         try{
+            val sdf: SimpleDateFormat = SimpleDateFormat("dd.M.yyyy HH:mm:ss")
+            val currentDate = sdf.format(Date())
+            Log.i("date time moon",currentDate)
+            var tempList: List<String> = currentDate.split(" ", ".",":")
+            astroDateTime.day = tempList[0].toInt()
+            astroDateTime.month = tempList[1].toInt()
+            astroDateTime.year = tempList[2].toInt()
+            astroDateTime.hour = tempList[3].toInt()
+            astroDateTime.minute = tempList[4].toInt()
+            astroDateTime.second = tempList[5].toInt()
             astroCalculatorLocation = AstroCalculator.Location(latitudeData,longitudeData)
             astroCalculator = AstroCalculator(astroDateTime,astroCalculatorLocation)
 
