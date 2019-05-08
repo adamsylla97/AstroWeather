@@ -52,8 +52,8 @@ class MoonFragment : Fragment() {
         initTextViews()
 
        // val astroDateTime = AstroDateTime(2019,5,6,20,43,11,0,true)
-        astroDateTime.day = 24
-        astroDateTime.month = 4
+        astroDateTime.day = 8
+        astroDateTime.month = 5
         astroDateTime.year = 2019
         astroDateTime.hour = 20
         astroDateTime.minute = 26
@@ -133,7 +133,9 @@ class MoonFragment : Fragment() {
         var tempList: List<String>
         tempList = newMoon.split(" ",".")
         Log.i("tempList",tempList[0]+ " " + tempList[1] + " " + tempList[2])
-        var start: DateTime = DateTime(tempList[2].toInt(),tempList[1].toInt(),tempList[0].toInt(),0,0,0,0)
+        //var start: DateTime = DateTime(tempList[2].toInt(),tempList[1].toInt(),tempList[0].toInt(),0,0,0,0)
+        var start: DateTime = DateTime(2019,6,3,0,0,0,0)
+        //nastepny now: 03.06.2019
         tempList = currentDate.split(" ",".")
         var end: DateTime = DateTime(tempList[2].toInt(),tempList[1].toInt(),tempList[0].toInt(),0,0,0,0)
         difference = Days.daysBetween(start,end).toString()
@@ -141,6 +143,11 @@ class MoonFragment : Fragment() {
 
         var synodicDay = difference.substring(1,difference.length-1)
         Log.i("actualTime between",synodicDay)
+
+        if(synodicDay.toDouble() < 0){
+            synodicDay = (synodicDay.toDouble() + 29.531).toString()
+            synodicDay = synodicDay.split(".")[0]
+        }
 
         return synodicDay
     }
