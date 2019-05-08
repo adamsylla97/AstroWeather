@@ -10,7 +10,10 @@ import android.widget.TextView
 import com.astrocalculator.AstroCalculator
 import com.astrocalculator.AstroDateTime
 import kotlinx.android.synthetic.main.fragment_moon.*
+import org.joda.time.DateTime
+import org.joda.time.Days
 import java.text.SimpleDateFormat
+import java.time.temporal.ChronoUnit
 import java.util.*
 
 
@@ -90,7 +93,7 @@ class MoonFragment : Fragment() {
         return fragmentView
     }
 
-    public fun update(){
+    private fun update(){
         astroCalculatorLocation = AstroCalculator.Location(latitudeData,longitudeData)
         astroCalculator = AstroCalculator(astroDateTime,astroCalculatorLocation)
 
@@ -108,8 +111,37 @@ class MoonFragment : Fragment() {
         nextFullMoon.text = temp[0] + " " + temp[1]
         var tempIllumination: Double = astroCalculator.moonInfo.illumination
         tempIllumination = tempIllumination*100
-        synodicDay.text = astroCalculator.moonInfo.age.toString()
+        synodicDay.text = getSynodicDay()
 
         illumination.text = tempIllumination.toString().substring(0,4) + "%"
+
+        getSynodicDay()
+    }
+
+    private fun getSynodicDay(): String{
+
+        var difference: String
+        var newMoon: String = astroCalculator.moonInfo.nextNewMoon.toString()
+
+        val sdf: SimpleDateFormat = SimpleDateFormat("dd.M.yyyy HH:mm:ss")
+        val currentDate = sdf.format(Date())
+
+        Log.i("SYNODIC DAY","INFO")
+        Log.i("actualTime moon", newMoon)
+        Log.i("actualTime", currentDate)
+
+        var tempList: List<String>
+        tempList = newMoon.split(" ",".")
+        Log.i("tempList",tempList[0]+ " " + tempList[1] + " " + tempList[2])
+        var start: DateTime = DateTime(tempList[2].toInt(),tempList[1].toInt(),tempList[0].toInt(),0,0,0,0)
+        tempList = currentDate.split(" ",".")
+        var end: DateTime = DateTime(tempList[2].toInt(),tempList[1].toInt(),tempList[0].toInt(),0,0,0,0)
+        difference = Days.daysBetween(start,end).toString()
+
+
+        var synodicDay = difference.substring(1,difference.length-1)
+        Log.i("actualTime between",synodicDay)
+
+        return synodicDay
     }
 }
