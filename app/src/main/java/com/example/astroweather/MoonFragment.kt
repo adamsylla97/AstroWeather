@@ -1,5 +1,6 @@
 package com.example.astroweather
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -15,7 +16,6 @@ import org.joda.time.DateTime
 import org.joda.time.Days
 import java.lang.Exception
 import java.text.SimpleDateFormat
-import java.time.temporal.ChronoUnit
 import java.util.*
 
 
@@ -47,9 +47,12 @@ class MoonFragment : Fragment() {
     var latitudeData: Double = Config.latitude
     var longitudeData: Double = Config.longitude
     val astroDateTime = AstroDateTime()
+    lateinit var inflater: LayoutInflater
+    var container: ViewGroup? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         fragmentView = inflater.inflate(R.layout.fragment_moon, container, false)
+        retainInstance = true
 
         initTextViews()
 
@@ -73,17 +76,25 @@ class MoonFragment : Fragment() {
                 var currentDate = sdf.format(Date())
                 currentDate = sdf.format(Date())
 
-                activity!!.runOnUiThread {
-                    actualTimeMoon.text = currentDate.toString()
-                    if((longitudeData!= Config.longitude || latitudeData!= Config.latitude) && Config.invalidData == false){
-                        latitudeData = Config.latitude
-                        longitudeData = Config.longitude
-                        update()
+                try{
+                    if(activity != null){
+                        activity!!.runOnUiThread {
+                            actualTimeMoon.text = currentDate.toString()
+                            if((longitudeData!= Config.longitude || latitudeData!= Config.latitude) && Config.invalidData == false){
+                                latitudeData = Config.latitude
+                                longitudeData = Config.longitude
+                                update()
+                            }
+                            if(iterator > Config.refreshRate){
+                                update()
+                                Toast.makeText(view!!.context,"refreshed",Toast.LENGTH_LONG).show()
+                                iterator = 0
+                            }
+                        }
                     }
-                    if(iterator > Config.refreshRate){
-                        update()
-                        Toast.makeText(view!!.context,"refreshed",Toast.LENGTH_LONG).show()
-                        iterator = 0
+                } catch (e: Exception){
+                    if(activity != null){
+                        activity!!.finish()
                     }
                 }
                 Thread.sleep(1000)

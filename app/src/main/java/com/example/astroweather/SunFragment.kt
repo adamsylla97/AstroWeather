@@ -14,6 +14,7 @@ import com.astrocalculator.AstroDateTime
 import kotlinx.android.synthetic.main.fragment_sun.*
 import org.joda.time.DateTime
 import java.lang.Exception
+import java.lang.NullPointerException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -46,6 +47,7 @@ class SunFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         fragmentView = inflater.inflate(R.layout.fragment_sun, container, false)
+        retainInstance = true
 
         initTextViews()
 
@@ -70,19 +72,28 @@ class SunFragment : Fragment() {
                 var currentDate = sdf.format(Date())
                 currentDate = sdf.format(Date())
 
-               activity!!.runOnUiThread {
-                   if((longitudeData!= Config.longitude || latitudeData!= Config.latitude) && Config.invalidData == false ){
-                       latitudeData = Config.latitude
-                       longitudeData = Config.longitude
-                       update()
-                   }
-                   if(iterator > Config.refreshRate){
-                       update()
-                       Toast.makeText(view!!.context,"refreshed",Toast.LENGTH_LONG).show()
-                       iterator = 0
-                   }
-                   actualTimeSun.text = currentDate.toString()
-               }
+                try{
+                    if(activity != null){
+                        activity!!.runOnUiThread {
+                            if((longitudeData!= Config.longitude || latitudeData!= Config.latitude) && Config.invalidData == false ){
+                                latitudeData = Config.latitude
+                                longitudeData = Config.longitude
+                                update()
+                            }
+                            if(iterator > Config.refreshRate){
+                                update()
+                                Toast.makeText(view!!.context,"refreshed",Toast.LENGTH_LONG).show()
+                                iterator = 0
+                            }
+                            actualTimeSun.text = currentDate.toString()
+                        }
+                    }
+                } catch (e: Exception){
+                    if(activity != null){
+                        activity!!.finish()
+                    }
+                }
+
                Thread.sleep(1000)
                iterator ++
 

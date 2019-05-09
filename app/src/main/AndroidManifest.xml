@@ -12,8 +12,8 @@
         <!--<activity android:name=".PopSettings"-->
         <!--android:theme="@style/AppTheme.PopMe">-->
         <!--</activity>-->
-        <activity android:name=".MainActivity"
-                  android:configChanges="orientation|screenSize">
+        <activity android:name=".MainActivity">
+                  <!--android:configChanges="orientation|screenSize">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
