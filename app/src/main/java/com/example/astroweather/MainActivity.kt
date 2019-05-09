@@ -12,6 +12,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import java.text.SimpleDateFormat
 import java.util.*
+import android.content.DialogInterface
+import android.support.v7.app.AlertDialog
+import android.view.View
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,6 +37,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onBackPressed() {
+        finish()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
