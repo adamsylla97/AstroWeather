@@ -109,6 +109,9 @@
             android:textStyle="bold"
             android:textAlignment="center"
             android:textSize="24sp"/>
+
+
+
     <TextView
             android:text="Najbliższa pełnia"
             android:layout_width="match_parent"

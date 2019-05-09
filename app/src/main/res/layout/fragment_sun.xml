@@ -100,16 +100,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textSize="18sp" android:text=" Świt cywilny"/>
+            android:textSize="18sp"
+            android:text=" Świt cywilny"/>
+
     <TextView
             android:text="TextView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/sunCivSet" android:textAlignment="center"
-            android:textSize="24sp" android:textStyle="bold"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/sunCivSet"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
     <TextView
             android:text="Zmierzch cywilny"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/textView18" android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView18"
+            android:textAlignment="center"
             android:textSize="18sp"/>
 
 </LinearLayout>

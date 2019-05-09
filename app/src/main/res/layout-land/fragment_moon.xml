@@ -1,15 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              tools:context=".MoonFragment">
+              android:background="#B9B9B9"
+              tools:context=".MoonFragment"
+             android:stretchColumns="*">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/holo_blue_light"
-            android:text="AAAAAAAAAAA" />
+            android:layout_height="match_parent">
 
-</LinearLayout>
+        <TextView
+                android:text=""
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/actualTimeMoon"
+                android:textAlignment="center"
+                android:layout_span="2"
+                android:textSize="48sp"
+                android:textStyle="bold"/>
+    </TableRow>
+
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:id="@+id/longitudeMoon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
+
+        <TextView
+                android:id="@+id/latitudeMoon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
+
+    </TableRow>
+
+
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <TextView
+            android:id="@+id/dlugosc_geograficzna"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Długość geograficzna"
+            android:textAlignment="center"
+            android:textSize="18sp"/>
+
+        <TextView
+                android:id="@+id/szerokosc_geograficzna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Szczerokość geograficzna"
+                android:textAlignment="center"
+                android:textSize="18sp"/>
+    </TableRow>
+
+
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:id="@+id/moonRise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+        <TextView
+                android:id="@+id/moonSet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
+
+    </TableRow>
+
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wchód"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+        <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zachód"
+                android:textAlignment="center"
+                android:textSize="18sp"/>
+
+    </TableRow>
+
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:id="@+id/nextNewMoon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
+
+        <TextView
+                android:text="nextFullMoon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/nextFullMoon"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textSize="24sp"/>
+
+    </TableRow>
+
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:id="@+id/textView20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Najbliższy nów"
+                android:textAlignment="center"
+                android:textSize="18sp"/>
+
+        <TextView
+                android:text="Najbliższa pełnia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewww"
+                android:textAlignment="center"
+                android:textSize="18sp"/>
+
+    </TableRow>
+
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:id="@+id/illumination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
+
+        <TextView
+                android:id="@+id/synodicDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
+
+    </TableRow>
+
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Faza księżyca"
+                android:textAlignment="center"
+                android:textSize="18sp"/>
+
+        <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dzień miesiąca synodycznego"
+                android:textAlignment="center"
+                android:textSize="18sp"/>
+
+    </TableRow>
+
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    </TableRow>
+</TableLayout>
