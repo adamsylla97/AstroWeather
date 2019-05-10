@@ -5,4 +5,5 @@ object Config{
     public var latitude: Double = 52.14
     public var invalidData: Boolean = false
     public var refreshRate: Int = 900
+    public var sendToast: Boolean = false
 }

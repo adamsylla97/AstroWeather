@@ -80,6 +80,9 @@ class MoonFragment : Fragment() {
                     if(activity != null){
                         activity!!.runOnUiThread {
                             actualTimeMoon.text = currentDate.toString()
+                            if(Config.sendToast && fragmentView != null){
+                                Toast.makeText(fragmentView.context,"Dozwolone dane: latitude -90 90 longitude -180 180",Toast.LENGTH_LONG).show()
+                            }
                             if((longitudeData!= Config.longitude || latitudeData!= Config.latitude) && Config.invalidData == false){
                                 latitudeData = Config.latitude
                                 longitudeData = Config.longitude
@@ -137,7 +140,7 @@ class MoonFragment : Fragment() {
             tempIllumination = tempIllumination*100
             synodicDay.text = getSynodicDay()
 
-            illumination.text = tempIllumination.toString().substring(0,4) + "%"
+            illumination.text = tempIllumination.toString().substring(0,10) + "%"
 
             getSynodicDay()
 

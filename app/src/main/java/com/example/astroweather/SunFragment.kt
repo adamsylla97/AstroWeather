@@ -75,6 +75,10 @@ class SunFragment : Fragment() {
                 try{
                     if(activity != null){
                         activity!!.runOnUiThread {
+                            if(Config.sendToast && fragmentView != null){
+                                Toast.makeText(fragmentView.context,"Dozwolone dane: latitude -90 90 longitude -180 180",Toast.LENGTH_LONG).show()
+                                Config.sendToast = false
+                            }
                             if((longitudeData!= Config.longitude || latitudeData!= Config.latitude) && Config.invalidData == false ){
                                 latitudeData = Config.latitude
                                 longitudeData = Config.longitude

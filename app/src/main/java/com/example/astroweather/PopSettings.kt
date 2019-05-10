@@ -16,7 +16,7 @@ class PopSettings : AppCompatDialogFragment() {
     lateinit var longitudeSettings: EditText
     lateinit var latitudeSettings: EditText
     lateinit var settingsSpinner: Spinner
-    var listOfItems = arrayOf("15 minut","30 minut", "1 godzina", "3 godziny", "6 godzin")
+    var listOfItems = arrayOf("15 sekund","30 minut", "1 godzina", "3 godziny", "6 godzin")
     var refreshRate: Int = 0
 
 
@@ -31,14 +31,19 @@ class PopSettings : AppCompatDialogFragment() {
             .setPositiveButton("ok",{dialog: DialogInterface?, which: Int ->
                 var longitude: String = longitudeSettings.text.toString()
                 var latitude: String = latitudeSettings.text.toString()
+                //latitude -90 90
+                //longitude -180 180
+
                 var validatedData: List<Double> = validateData(longitude,latitude)
                 Log.i("new longitude",validatedData[0].toString())
                 Log.i("new latitude",validatedData[1].toString())
-                Config.longitude = validatedData[0]
-                Config.latitude = validatedData[1]
-                Log.i("config longi",Config.longitude.toString())
-                Log.i("config latit",Config.latitude.toString())
-                Log.i("config inva",Config.invalidData.toString())
+//                if(!(validatedData[0] < -180.0 || validatedData[0] > 180 || validatedData[1] < -90.0 || validatedData[1] > 90)){
+                    Config.longitude = validatedData[0]
+                    Config.latitude = validatedData[1]
+                    Log.i("config longi",Config.longitude.toString())
+                    Log.i("config latit",Config.latitude.toString())
+                    Log.i("config inva",Config.invalidData.toString())
+                //}
                 Config.refreshRate = refreshRate
                 Log.i("config refresh",Config.refreshRate.toString())
 
@@ -54,9 +59,11 @@ class PopSettings : AppCompatDialogFragment() {
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                Toast.makeText(view!!.context,listOfItems[position], Toast.LENGTH_LONG).show()
+                if(view != null){
+                    Toast.makeText(view!!.context,listOfItems[position], Toast.LENGTH_LONG).show()
+                }
                 when(position){
-                    0 -> refreshRate = 900
+                    0 -> refreshRate = 15
                     1 -> refreshRate = 1800
                     2 -> refreshRate = 3600
                     3 -> refreshRate = 10800
@@ -72,8 +79,16 @@ class PopSettings : AppCompatDialogFragment() {
     fun validateData(longitude: String, latitude: String): List<Double>{
         var validatedData: MutableList<Double> = mutableListOf(0.0,0.0)
         try{
-            validatedData.set(0,longitude.toDouble())
-            validatedData.set(1,latitude.toDouble())
+            validatedData.set(0, longitude.toDouble())
+            validatedData.set(1, latitude.toDouble())
+            if(((validatedData[0] < -180.0 || validatedData[0] > 180.0) && (validatedData[1] < -90.0 || validatedData[1] > 90.0))) {
+
+
+                Log.i("ERROR POPSETTINGS","niepoprawne dane")
+                validatedData.set(0,Config.longitude)
+                validatedData.set(1,Config.latitude)
+                Config.sendToast = true
+            }
         }catch (e: Exception){
             Log.i("ERROR POPSETTINGS","niepoprawne dane")
             validatedData.set(0,Config.longitude)
