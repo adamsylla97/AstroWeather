@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,22 +21,43 @@ class WeatherBasicFragment : Fragment() {
     companion object {
         var baseUrl = "http://api.openweathermap.org/";
         var appId = "39b02c18d58d117fd575ddcb8c32b72d"
-        var lat = "52.14"
-        var lon = "21.01"
+        var lat = Config.latitude.toString();
+        var lon = Config.longitude.toString();
     }
 
     lateinit var viewFragment: View
+    lateinit var actualTimeWeather: TextView
+    lateinit var city: TextView
+    lateinit var longitudeWeather: TextView
+    lateinit var latitudeWeather: TextView
+    lateinit var temperature: TextView
+    lateinit var pressure: TextView
+    lateinit var updateWeatherButton: Button
+
+    fun initLayout(){
+
+        actualTimeWeather = viewFragment.findViewById(R.id.actualTimeWeather)
+        city = viewFragment.findViewById(R.id.city)
+        longitudeWeather = viewFragment.findViewById(R.id.longitudeWeather)
+        latitudeWeather = viewFragment.findViewById(R.id.latitudeWeather)
+        temperature = viewFragment.findViewById(R.id.temperature)
+        pressure = viewFragment.findViewById(R.id.pressure)
+        updateWeatherButton = viewFragment.findViewById(R.id.updateWeatherButton)
+        updateWeatherButton.setOnClickListener {
+            getCurrentWeather()
+        }
+
+    }
+
+    fun getCelcius(kelvin: Float): Double{
+        return kelvin - 274.15
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         viewFragment = inflater.inflate(R.layout.fragment_basic_weather, container, false)
 
-        //retrofit
-        var weatherButton: Button = viewFragment.findViewById(R.id.weatherButton)
-        weatherButton.setOnClickListener {
-            getCurrentWeather()
-        }
-
+        initLayout()
 
         return viewFragment
     }
@@ -58,6 +80,13 @@ class WeatherBasicFragment : Fragment() {
                     Log.i("astro Country",weatherResponse!!.sys!!.country)
                     Log.i("astro City",weatherResponse!!.name)
                     Log.i("astro Temp", weatherResponse.main!!.temp.toString())
+
+                    city.text = weatherResponse!!.name
+                    longitudeWeather.text = Config.longitude.toString()
+                    latitudeWeather.text = Config.latitude.toString()
+                    temperature.text = getCelcius(weatherResponse.main!!.temp).toString()
+                    pressure.text = weatherResponse.main!!.pressure.toString()
+
                 } else {
                     Log.i("error",response.code().toString())
                 }
