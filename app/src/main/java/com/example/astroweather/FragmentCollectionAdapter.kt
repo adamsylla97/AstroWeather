@@ -15,7 +15,7 @@ class FragmentCollectionAdapter(fm: FragmentManager?) : FragmentStatePagerAdapte
         when(position){
             0 -> fragment = SunFragment()
             1 -> fragment = MoonFragment()
-            2 -> fragment = WeatherFragment()
+            2 -> fragment = WeatherBasicFragment()
         }
 
         return fragment

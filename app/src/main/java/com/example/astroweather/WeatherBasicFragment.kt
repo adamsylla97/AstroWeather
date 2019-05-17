@@ -15,7 +15,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class WeatherFragment : Fragment() {
+class WeatherBasicFragment : Fragment() {
 
     companion object {
         var baseUrl = "http://api.openweathermap.org/";
@@ -28,7 +28,7 @@ class WeatherFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        viewFragment = inflater.inflate(R.layout.fragment_weather, container, false)
+        viewFragment = inflater.inflate(R.layout.fragment_basic_weather, container, false)
 
         //retrofit
         var weatherButton: Button = viewFragment.findViewById(R.id.weatherButton)
