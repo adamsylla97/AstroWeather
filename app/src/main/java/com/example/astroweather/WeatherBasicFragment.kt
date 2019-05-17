@@ -21,8 +21,8 @@ class WeatherBasicFragment : Fragment() {
     companion object {
         var baseUrl = "http://api.openweathermap.org/";
         var appId = "39b02c18d58d117fd575ddcb8c32b72d"
-        var lat = Config.latitude.toString();
-        var lon = Config.longitude.toString();
+        var lat = 23.toString()//Config.latitude.toString();
+        var lon = 23.toString()//Config.longitude.toString();
     }
 
     lateinit var viewFragment: View
