@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,6 +34,7 @@ class WeatherBasicFragment : Fragment() {
     lateinit var temperature: TextView
     lateinit var pressure: TextView
     lateinit var updateWeatherButton: Button
+    lateinit var weatherIcon: ImageView
 
     fun initLayout(){
 
@@ -43,6 +45,7 @@ class WeatherBasicFragment : Fragment() {
         temperature = viewFragment.findViewById(R.id.temperature)
         pressure = viewFragment.findViewById(R.id.pressure)
         updateWeatherButton = viewFragment.findViewById(R.id.updateWeatherButton)
+        weatherIcon = viewFragment.findViewById(R.id.weatherIcon)
         updateWeatherButton.setOnClickListener {
             getCurrentWeather()
         }
@@ -86,6 +89,8 @@ class WeatherBasicFragment : Fragment() {
                     latitudeWeather.text = Config.latitude.toString()
                     temperature.text = getCelcius(weatherResponse.main!!.temp).toString()
                     pressure.text = weatherResponse.main!!.pressure.toString()
+
+                    weatherIcon.setImageResource(R.drawable.android01d)
 
                 } else {
                     Log.i("error",response.code().toString())
