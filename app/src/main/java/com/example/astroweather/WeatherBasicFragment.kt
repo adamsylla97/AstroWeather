@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class WeatherBasicFragment : Fragment() {
 
     companion object {
-        var baseUrl = "http://api.openweathermap.org/";
+        var baseUrl = "https://api.openweathermap.org/";
         var appId = "39b02c18d58d117fd575ddcb8c32b72d"
         var lat = 23.toString()//Config.latitude.toString();
         var lon = 23.toString()//Config.longitude.toString();

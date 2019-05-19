@@ -79,7 +79,8 @@ class MoonFragment : Fragment() {
                 try{
                     if(activity != null){
                         activity!!.runOnUiThread {
-                            actualTimeMoon.text = currentDate.toString()
+                            if(actualTimeMoon!= null)
+                                actualTimeMoon.text = currentDate.toString()
                             if(Config.sendToast && fragmentView != null){
                                 Toast.makeText(fragmentView.context,"Dozwolone dane: latitude -90 90 longitude -180 180",Toast.LENGTH_LONG).show()
                             }

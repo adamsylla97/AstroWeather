@@ -89,7 +89,8 @@ class SunFragment : Fragment() {
                                 Toast.makeText(view!!.context,"refreshed",Toast.LENGTH_LONG).show()
                                 iterator = 0
                             }
-                            actualTimeSun.text = currentDate.toString()
+                            if(actualTimeSun!=null)
+                                actualTimeSun.text = currentDate.toString()
                         }
                     }
                 } catch (e: Exception){

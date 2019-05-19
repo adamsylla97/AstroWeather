@@ -17,6 +17,7 @@ class FragmentCollectionAdapter(fm: FragmentManager?) : FragmentStatePagerAdapte
             1 -> fragment = MoonFragment()
             2 -> fragment = WeatherBasicFragment()
             3 -> fragment = WeatherAdditionalFragment()
+            4 -> fragment = WeatherForecastFragment()
         }
 
         return fragment
@@ -24,7 +25,7 @@ class FragmentCollectionAdapter(fm: FragmentManager?) : FragmentStatePagerAdapte
     }
 
     override fun getCount(): Int {
-        return 4
+        return 5
     }
 
 }

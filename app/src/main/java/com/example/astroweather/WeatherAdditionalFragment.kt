@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class WeatherAdditionalFragment : Fragment() {
 
     companion object {
-        var baseUrl = "http://api.openweathermap.org/";
+        var baseUrl = "https://api.openweathermap.org/";
         var appId = "39b02c18d58d117fd575ddcb8c32b72d"
         var lat = 23.toString();
         var lon = 23.toString();
@@ -77,6 +77,7 @@ class WeatherAdditionalFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
+                t.printStackTrace()
                 Log.i("no cos chyba poszlo","nie tak XD")
             }
         })
