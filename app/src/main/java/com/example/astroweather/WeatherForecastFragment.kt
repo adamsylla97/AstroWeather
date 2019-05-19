@@ -3,6 +3,8 @@ package com.example.astroweather
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -33,13 +35,40 @@ class WeatherForecastFragment : Fragment() {
 
         fragmentView =  inflater.inflate(R.layout.fragment_weather_forecast, container, false)
 
-        getForecastWeather = fragmentView.findViewById(R.id.getForecastWeather)
+        Log.i("oncreate","all is ok")
+
+        getForecastWeather = fragmentView.findViewById(R.id.updateButton)
         getForecastWeather.setOnClickListener {
-            getForecastWeather()
+            //getForecastWeather()
+            updateRecyclerView()
         }
+
+        initList()
 
         return fragmentView
 
+    }
+
+    fun initList(){
+        Log.i("initList","all is ok")
+
+        initRecyclerView()
+    }
+
+    lateinit var recyclerView: RecyclerView
+    lateinit var recyclerViewAdapter: RecyclerViewAdapter
+
+    fun initRecyclerView(){
+        Log.i("initRecyclerView","all is ok")
+        recyclerView = fragmentView.findViewById(R.id.recyclerView)
+        recyclerViewAdapter = RecyclerViewAdapter()
+        recyclerView.adapter = recyclerViewAdapter
+        recyclerView.layoutManager = LinearLayoutManager(fragmentView.context)
+    }
+
+    fun updateRecyclerView(){
+        recyclerViewAdapter.lista[2] = "asdasdasdasd"
+        recyclerViewAdapter.notifyItemChanged(2)
     }
 
     fun getForecastWeather() {
@@ -66,18 +95,11 @@ class WeatherForecastFragment : Fragment() {
             override fun onResponse(call: Call<WeatherForecastResponse>, response: Response<WeatherForecastResponse>) {
 
                 if(response.code() == 200){
-                    //val weatherResponse: WeatherResponse? = response.body() as WeatherResponse
-                    //val weatherResponseList: List<WeatherResponse> = response.body() as List<WeatherResponse>
-                    //assert(weatherResponse != null)
-                    //val weatherResponseString: String = response.body().toString()
                     val weatherForecastResponse: WeatherForecastResponse? = response.body()
 
                     Log.i("weather forecast", weatherForecastResponse!!.city!!.name)
                     Log.i("weather forecast", weatherForecastResponse!!.list!![0]!!.dt.toString())
                     Log.i("weather forecast", weatherForecastResponse!!.list!![1]!!.dt.toString())
-
-                    //Log.i("cos pobralem",weatherResponse!!.name)
-                    //Log.i("lista:",weatherResponseList.size.toString())
 
 
                 } else {
