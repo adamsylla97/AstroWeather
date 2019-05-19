@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,8 +27,18 @@ class WeatherAdditionalFragment : Fragment() {
     lateinit var viewFragment: View
 
     lateinit var tempButton: Button
+    lateinit var sky: TextView
+    lateinit var humidity: TextView
+    lateinit var clouds: TextView
+    lateinit var wind: TextView
 
     fun initLayout(){
+
+        sky = viewFragment.findViewById(R.id.sky)
+        humidity = viewFragment.findViewById(R.id.humidity)
+        clouds = viewFragment.findViewById(R.id.clouds)
+        wind = viewFragment.findViewById(R.id.wind)
+
         tempButton = viewFragment.findViewById(R.id.tempUpdate)
         tempButton.setOnClickListener {
             getCurrentWeather()
@@ -70,6 +81,12 @@ class WeatherAdditionalFragment : Fragment() {
                     Log.i("addit clouds",weatherResponse!!.clouds!!.all.toString())
                     Log.i("addit weather desc",weatherResponse!!.weather!![0].description)
                     Log.i("addit weather icon",weatherResponse!!.weather!![0].icon)
+
+                    wind.text = weatherResponse!!.wind!!.speed.toString()
+                    sky.text = weatherResponse!!.weather!![0].description
+                    humidity.text = weatherResponse!!.main!!.humidity.toString()
+                    clouds.text = weatherResponse!!.clouds!!.all.toString()
+
                 } else {
                     Log.i("error",response.code().toString())
                 }

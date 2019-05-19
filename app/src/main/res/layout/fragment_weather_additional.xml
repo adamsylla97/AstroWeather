@@ -12,12 +12,12 @@
             android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView"
+            android:id="@+id/wind"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"/>
     <TextView
-            android:text="TextView"
+            android:text="Siła wiatru"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView3"
@@ -27,12 +27,12 @@
             android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView9"
+            android:id="@+id/humidity"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"/>
     <TextView
-            android:text="TextView"
+            android:text="Wilgotność"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView11"
@@ -42,12 +42,12 @@
             android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView15"
+            android:id="@+id/clouds"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"/>
     <TextView
-            android:text="TextView"
+            android:text="Zachmurzenie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView19"
@@ -57,12 +57,12 @@
             android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView21"
+            android:id="@+id/sky"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"/>
     <TextView
-            android:text="TextView"
+            android:text="Opis nieba"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView22"
