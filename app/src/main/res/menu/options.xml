@@ -3,5 +3,7 @@
 
     <item android:title="settings"
           android:id="@+id/settings" />
+    <item android:title="UPDATE"
+          android:id="@+id/update" />
 
 </menu>

@@ -22,8 +22,8 @@ class WeatherBasicFragment : Fragment() {
     companion object {
         var baseUrl = "https://api.openweathermap.org/";
         var appId = "39b02c18d58d117fd575ddcb8c32b72d"
-        var lat = 23.toString()//Config.latitude.toString();
-        var lon = 23.toString()//Config.longitude.toString();
+        var lat = 54.toString()//Config.latitude.toString();
+        var lon = 123.toString()//Config.longitude.toString();
     }
 
     lateinit var viewFragment: View
@@ -62,10 +62,14 @@ class WeatherBasicFragment : Fragment() {
 
         initLayout()
 
+        if(Config.shouldUpdate){
+            getCurrentWeather()
+        }
+
         return viewFragment
     }
 
-    fun getCurrentWeather() {
+    public fun getCurrentWeather() {
 
         var retrofit: Retrofit = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -90,7 +94,29 @@ class WeatherBasicFragment : Fragment() {
                     temperature.text = getCelcius(weatherResponse.main!!.temp).toString()
                     pressure.text = weatherResponse.main!!.pressure.toString()
 
-                    weatherIcon.setImageResource(R.drawable.android01d)
+                   // weatherIcon.setImageResource(R.drawable.android01d)
+
+                    when(weatherResponse.weather!![0]!!.icon){
+                        "01d" -> weatherIcon.setImageResource(R.drawable.android01d)
+                        "01n" -> weatherIcon.setImageResource(R.drawable.android01n)
+                        "02d" -> weatherIcon.setImageResource(R.drawable.android02d)
+                        "02n" -> weatherIcon.setImageResource(R.drawable.android02n)
+                        "03d" -> weatherIcon.setImageResource(R.drawable.android03d)
+                        "03n" -> weatherIcon.setImageResource(R.drawable.android03n)
+                        "04d" -> weatherIcon.setImageResource(R.drawable.android04d)
+                        "04n" -> weatherIcon.setImageResource(R.drawable.android04n)
+                        "09d" -> weatherIcon.setImageResource(R.drawable.android09d)
+                        "09n" -> weatherIcon.setImageResource(R.drawable.android09n)
+                        "10d" -> weatherIcon.setImageResource(R.drawable.android10d)
+                        "10n" -> weatherIcon.setImageResource(R.drawable.android10n)
+                        "11d" -> weatherIcon.setImageResource(R.drawable.android11d)
+                        "11n" -> weatherIcon.setImageResource(R.drawable.android11n)
+                        "13d" -> weatherIcon.setImageResource(R.drawable.android13d)
+                        "13n" -> weatherIcon.setImageResource(R.drawable.android13n)
+                        "50d" -> weatherIcon.setImageResource(R.drawable.android50d)
+                        "50n" -> weatherIcon.setImageResource(R.drawable.android50n)
+                    }
+
 
                 } else {
                     Log.i("error",response.code().toString())
