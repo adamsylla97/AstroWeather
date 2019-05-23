@@ -28,7 +28,7 @@ class RecyclerViewAdapter(weatherForecast: ArrayList<ForecastDayInformation>) : 
 
         Log.i("inrecycle",lista[p1].toString())
 
-        p0.day.text = p1.toString()
+        p0.day.text = lista[p1].dayOfWeek
         p0.temp.text = lista[p1].temp
         p0.humidity.text = lista[p1].humidity
         p0.pressure.text = lista[p1].pressure

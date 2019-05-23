@@ -1,13 +1,15 @@
 package com.example.astroweather
 
-class ForecastDayInformation(t:String, h:String, p:String, c:String) {
+class ForecastDayInformation(d:String, t:String, h:String, p:String, c:String) {
 
+    var dayOfWeek: String
     var temp: String
     var humidity: String
     var pressure: String
     var clouds: String
 
     init {
+        dayOfWeek = d
         temp = t
         humidity = h
         pressure = p

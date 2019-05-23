@@ -10,11 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import org.joda.time.DateTime
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
 class WeatherForecastFragment : Fragment() {
 
@@ -41,8 +44,6 @@ class WeatherForecastFragment : Fragment() {
         getForecastWeather = fragmentView.findViewById(R.id.updateButton)
         getForecastWeather.setOnClickListener {
             getForecastWeather()
-//            initList()
-            //updateRecyclerView()
         }
 
         //initList()
@@ -69,9 +70,30 @@ class WeatherForecastFragment : Fragment() {
         }
     }
 
-    fun getDay(){
+    fun getDay(addDays: Int):String{
+
+        val aLocale = Locale.Builder().setLanguage("pl").setRegion("PL").build()
+
+        var simpleDateFormat: SimpleDateFormat = SimpleDateFormat("EEEE")
+
+        var mojaData: Date = Date()
+        var dt: DateTime = DateTime(mojaData)
+
+        var dayOfWeek = dt.plusDays(addDays).dayOfWeek().get()
 
 
+
+        when(dayOfWeek){
+            1 -> return "poniedzialek"
+            2 -> return "wtorek"
+            3 -> return "sroda"
+            4 -> return "czwartek"
+            5 -> return "piatek"
+            6 -> return "sobota"
+            7 -> return "niedziela"
+        }
+
+        return "nie ma takiego dnia"
 
     }
 
@@ -113,12 +135,13 @@ class WeatherForecastFragment : Fragment() {
 
                         var temperature = getCelcius(weatherForecastResponse!!.list!![i]!!.temp!!.day)
 
+                        var d = getDay(i+1)
                         var t = temperature.toString()
                         var h = weatherForecastResponse!!.list!![i]!!.humidity.toString()
                         var p = weatherForecastResponse!!.list!![i]!!.pressure.toString()
                         var c = weatherForecastResponse!!.list!![i]!!.clouds.toString()
 
-                        var temp: ForecastDayInformation? = ForecastDayInformation(t,h,p,c)
+                        var temp: ForecastDayInformation? = ForecastDayInformation(d,t,h,p,c)
 
                         weatherForecast.add(temp!!)
 
