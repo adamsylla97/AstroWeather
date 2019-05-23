@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import com.google.gson.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,6 +29,7 @@ class WeatherForecastFragment : Fragment() {
     }
 
     lateinit var getForecastWeather: Button
+    var weatherForecast: ArrayList<ForecastDayInformation> = ArrayList<ForecastDayInformation>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -37,21 +37,21 @@ class WeatherForecastFragment : Fragment() {
 
         Log.i("oncreate","all is ok")
 
+        //getForecastWeather()
         getForecastWeather = fragmentView.findViewById(R.id.updateButton)
         getForecastWeather.setOnClickListener {
-            //getForecastWeather()
-            updateRecyclerView()
+            getForecastWeather()
+//            initList()
+            //updateRecyclerView()
         }
 
-        initList()
+        //initList()
 
         return fragmentView
 
     }
 
     fun initList(){
-        Log.i("initList","all is ok")
-
         initRecyclerView()
     }
 
@@ -60,15 +60,24 @@ class WeatherForecastFragment : Fragment() {
 
     fun initRecyclerView(){
         Log.i("initRecyclerView","all is ok")
-        recyclerView = fragmentView.findViewById(R.id.recyclerView)
-        recyclerViewAdapter = RecyclerViewAdapter()
-        recyclerView.adapter = recyclerViewAdapter
-        recyclerView.layoutManager = LinearLayoutManager(fragmentView.context)
+
+        recyclerViewAdapter = RecyclerViewAdapter(weatherForecast)
+        recyclerView = fragmentView.findViewById<RecyclerView>(R.id.recyclerView).apply{
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this.context)
+            adapter = recyclerViewAdapter
+        }
     }
 
-    fun updateRecyclerView(){
-        recyclerViewAdapter.lista[2] = "asdasdasdasd"
-        recyclerViewAdapter.notifyItemChanged(2)
+    fun getDay(){
+
+
+
+    }
+
+
+    fun getCelcius(kelvin: Double): Double{
+        return kelvin - 274.15
     }
 
     fun getForecastWeather() {
@@ -97,9 +106,26 @@ class WeatherForecastFragment : Fragment() {
                 if(response.code() == 200){
                     val weatherForecastResponse: WeatherForecastResponse? = response.body()
 
-                    Log.i("weather forecast", weatherForecastResponse!!.city!!.name)
-                    Log.i("weather forecast", weatherForecastResponse!!.list!![0]!!.dt.toString())
-                    Log.i("weather forecast", weatherForecastResponse!!.list!![1]!!.dt.toString())
+
+                    weatherForecast.clear()
+
+                    for(i in 0..4){
+
+                        var temperature = getCelcius(weatherForecastResponse!!.list!![i]!!.temp!!.day)
+
+                        var t = temperature.toString()
+                        var h = weatherForecastResponse!!.list!![i]!!.humidity.toString()
+                        var p = weatherForecastResponse!!.list!![i]!!.pressure.toString()
+                        var c = weatherForecastResponse!!.list!![i]!!.clouds.toString()
+
+                        var temp: ForecastDayInformation? = ForecastDayInformation(t,h,p,c)
+
+                        weatherForecast.add(temp!!)
+
+                    }
+
+                    initList()
+                    updateRecyclerView()
 
 
                 } else {
@@ -114,5 +140,16 @@ class WeatherForecastFragment : Fragment() {
 
     }
 
+    fun updateRecyclerView(){
+        var i = 0
+        while(i<weatherForecast.size){
+            recyclerViewAdapter.lista[i].temp = weatherForecast[i].temp
+            recyclerViewAdapter.lista[i].pressure = weatherForecast[i].pressure
+            recyclerViewAdapter.lista[i].clouds = weatherForecast[i].clouds
+            recyclerViewAdapter.lista[i].humidity = weatherForecast[i].humidity
+            recyclerViewAdapter.notifyItemInserted(i)
+            i++
+        }
+    }
 
 }

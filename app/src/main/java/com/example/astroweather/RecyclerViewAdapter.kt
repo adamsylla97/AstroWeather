@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 
-class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter(weatherForecast: ArrayList<ForecastDayInformation>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
-    var lista: Array<String> = arrayOf("jeden","dwa","trzy","cztery","piec")
+    var lista: List<ForecastDayInformation> = weatherForecast
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ViewHolder {
         var view: View = LayoutInflater.from(parent.context).inflate(R.layout.forecast_list_item,parent,false)
@@ -20,36 +19,42 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
     }
 
     override fun getItemCount(): Int {
+        Log.i("listasize",lista.size.toString())
         return lista.size
     }
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
         Log.i("onbindviewholder","called")
 
-        when(p1){
-            0 -> p0.name2.text = lista[0]
-            1 -> p0.name2.text = lista[1]
-            2 -> p0.name2.text = lista[2]
-            3 -> p0.name2.text = lista[3]
-            4 -> p0.name2.text = lista[4]
-        }
+        Log.i("inrecycle",lista[p1].toString())
 
-        p0.name1.text = p1.toString()
+        p0.day.text = p1.toString()
+        p0.temp.text = lista[p1].temp
+        p0.humidity.text = lista[p1].humidity
+        p0.pressure.text = lista[p1].pressure
+        p0.clouds.text = lista[p1].clouds
+
+        Log.i("recycledata123",p1.toString())
+        Log.i("recycledata123",lista[p1].toString())
 
     }
 
     public class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        lateinit var parentItemLayout: LinearLayout
-        lateinit var name1: TextView
-        lateinit var name2: TextView
-        lateinit var name3: TextView
+        var parentItemLayout: LinearLayout
+        var day: TextView
+        var temp: TextView
+        var humidity: TextView
+        var pressure: TextView
+        var clouds: TextView
 
         init {
             parentItemLayout = itemView.findViewById(R.id.parentItemLayout)
-            name1 = itemView.findViewById(R.id.name1)
-            name2 = itemView.findViewById(R.id.name2)
-            name3 = itemView.findViewById(R.id.name3)
+            day = itemView.findViewById(R.id.day)
+            temp = itemView.findViewById(R.id.temp)
+            humidity = itemView.findViewById(R.id.humidity)
+            pressure = itemView.findViewById(R.id.pressure)
+            clouds = itemView.findViewById(R.id.clouds)
         }
 
     }

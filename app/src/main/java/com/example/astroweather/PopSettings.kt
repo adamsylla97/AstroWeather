@@ -31,13 +31,10 @@ class PopSettings : AppCompatDialogFragment() {
             .setPositiveButton("ok",{dialog: DialogInterface?, which: Int ->
                 var longitude: String = longitudeSettings.text.toString()
                 var latitude: String = latitudeSettings.text.toString()
-                //latitude -90 90
-                //longitude -180 180
 
                 var validatedData: List<Double> = validateData(longitude,latitude)
                 Log.i("new longitude",validatedData[0].toString())
                 Log.i("new latitude",validatedData[1].toString())
-//                if(!(validatedData[0] < -180.0 || validatedData[0] > 180 || validatedData[1] < -90.0 || validatedData[1] > 90)){
                     Config.longitude = validatedData[0]
                     Config.latitude = validatedData[1]
                     Log.i("config longi",Config.longitude.toString())
