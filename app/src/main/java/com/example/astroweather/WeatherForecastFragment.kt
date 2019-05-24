@@ -46,6 +46,10 @@ class WeatherForecastFragment : Fragment() {
             getForecastWeather()
         }
 
+        if(Config.shouldUpdate){
+            getForecastWeather()
+        }
+
         //initList()
 
         return fragmentView

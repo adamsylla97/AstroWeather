@@ -8,6 +8,7 @@ object Config{
     public var sendToast: Boolean = false
 
     public var shouldUpdate: Boolean = false
+    public var firstUsage: Boolean = true
 
     //shared preferences
     //WeatherBasicFragment

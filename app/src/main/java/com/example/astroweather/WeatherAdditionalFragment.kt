@@ -45,10 +45,22 @@ class WeatherAdditionalFragment : Fragment() {
         }
     }
 
+    private fun updateFromSharedPreferences() {
+        wind.text = Config.windSpeed
+        sky.text = Config.sky
+        humidity.text = Config.humidity
+        clouds.text = Config.clouds
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewFragment = inflater.inflate(R.layout.fragment_weather_additional, container, false)
 
         initLayout()
+        if(Config.shouldUpdate){
+            getCurrentWeather()
+        } else {
+            updateFromSharedPreferences()
+        }
 
         return viewFragment
     }

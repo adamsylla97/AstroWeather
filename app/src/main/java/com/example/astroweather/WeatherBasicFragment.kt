@@ -1,6 +1,8 @@
 package com.example.astroweather
 
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -59,14 +61,48 @@ class WeatherBasicFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         viewFragment = inflater.inflate(R.layout.fragment_basic_weather, container, false)
+        retainInstance = true
 
         initLayout()
 
         if(Config.shouldUpdate){
             getCurrentWeather()
+            Log.i("WeatherBasicFragment","Hello world")
+        } else {
+            updateFromSharedPreferences()
         }
 
         return viewFragment
+    }
+
+    private fun updateFromSharedPreferences() {
+        city.text = Config.city
+        longitudeWeather.text = Config.longitude.toString()
+        latitudeWeather.text = Config.latitude.toString()
+        temperature.text = Config.temperature
+        pressure.text = Config.pressure
+
+        when(Config.weatherIcon){
+            "01d" -> weatherIcon.setImageResource(R.drawable.android01d)
+            "01n" -> weatherIcon.setImageResource(R.drawable.android01n)
+            "02d" -> weatherIcon.setImageResource(R.drawable.android02d)
+            "02n" -> weatherIcon.setImageResource(R.drawable.android02n)
+            "03d" -> weatherIcon.setImageResource(R.drawable.android03d)
+            "03n" -> weatherIcon.setImageResource(R.drawable.android03n)
+            "04d" -> weatherIcon.setImageResource(R.drawable.android04d)
+            "04n" -> weatherIcon.setImageResource(R.drawable.android04n)
+            "09d" -> weatherIcon.setImageResource(R.drawable.android09d)
+            "09n" -> weatherIcon.setImageResource(R.drawable.android09n)
+            "10d" -> weatherIcon.setImageResource(R.drawable.android10d)
+            "10n" -> weatherIcon.setImageResource(R.drawable.android10n)
+            "11d" -> weatherIcon.setImageResource(R.drawable.android11d)
+            "11n" -> weatherIcon.setImageResource(R.drawable.android11n)
+            "13d" -> weatherIcon.setImageResource(R.drawable.android13d)
+            "13n" -> weatherIcon.setImageResource(R.drawable.android13n)
+            "50d" -> weatherIcon.setImageResource(R.drawable.android50d)
+            "50n" -> weatherIcon.setImageResource(R.drawable.android50n)
+        }
+
     }
 
     public fun getCurrentWeather() {
