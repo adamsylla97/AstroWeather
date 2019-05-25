@@ -12,11 +12,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import kotlinx.android.synthetic.main.fragment_sun.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class WeatherBasicFragment : Fragment() {
@@ -71,6 +76,32 @@ class WeatherBasicFragment : Fragment() {
         } else {
             updateFromSharedPreferences()
         }
+
+        //clock part
+        val sdf = SimpleDateFormat("HH:mm:ss")
+
+        Thread(Runnable {
+            while (true){
+                var currentDate = sdf.format(Date())
+                currentDate = sdf.format(Date())
+
+                try{
+                    if(activity != null){
+                        activity!!.runOnUiThread {
+                            if(actualTimeWeather!=null)
+                                actualTimeWeather.text = currentDate.toString()
+                        }
+                    }
+                } catch (e: Exception){
+                    if(activity != null){
+                        activity!!.finish()
+                    }
+                }
+
+                Thread.sleep(1000)
+
+            }
+        }).start()
 
         return viewFragment
     }
