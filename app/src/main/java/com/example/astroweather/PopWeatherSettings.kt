@@ -9,35 +9,52 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
-import kotlinx.android.synthetic.main.activity_pop_settings.*
 import java.lang.Exception
 
-class PopSettings : AppCompatDialogFragment() {
+class PopWeatherSettings: AppCompatDialogFragment() {
 
     lateinit var longitudeSettings: EditText
     lateinit var latitudeSettings: EditText
     lateinit var settingsSpinner: Spinner
+    lateinit var citiesSpinner: Spinner
+    lateinit var unitsSwitch: Switch
     var listOfItems = arrayOf("15 sekund","30 minut", "1 godzina", "3 godziny", "6 godzin")
+    var listOfCities = arrayOf("Lodz","Warszawa","Krakow")
     var refreshRate: Int = 0
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         var builder: AlertDialog.Builder = AlertDialog.Builder(activity)
         var inflater: LayoutInflater = activity!!.layoutInflater
-        var view: View = inflater.inflate(R.layout.activity_pop_settings,null)
+        var view: View = inflater.inflate(R.layout.activity_pop_weather_settings,null)
         builder.setView(view)
-            .setNegativeButton("cancel",{dialogInterface: DialogInterface, i: Int ->
+            .setNegativeButton("cancel",{ dialogInterface: DialogInterface, i: Int ->
 
             })
-            .setPositiveButton("UPDATE",{dialog: DialogInterface?, which: Int ->
+            .setPositiveButton("ok",{ dialog: DialogInterface?, which: Int ->
                 var longitude: String = longitudeSettings.text.toString()
                 var latitude: String = latitudeSettings.text.toString()
 
                 var validatedData: List<Double> = validateData(longitude,latitude)
                 Log.i("new longitude",validatedData[0].toString())
                 Log.i("new latitude",validatedData[1].toString())
-                    Config.longitude = validatedData[0]
-                    Config.latitude = validatedData[1]
+                Config.longitude = validatedData[0]
+                Config.latitude = validatedData[1]
+                Log.i("config longi",Config.longitude.toString())
+                Log.i("config latit",Config.latitude.toString())
+                Log.i("config inva",Config.invalidData.toString())
+                Config.userUpdate = true
 
+                //switch
+
+                if(unitsSwitch.isChecked){
+                    Config.units = true
+                    Log.i("switch","celcius")
+                } else {
+                    Config.units = false
+                    Log.i("switch","kelvin")
+                }
+
+                //}
                 Config.refreshRate = refreshRate
                 Log.i("config refresh",Config.refreshRate.toString())
 
@@ -45,6 +62,7 @@ class PopSettings : AppCompatDialogFragment() {
 
         longitudeSettings = view.findViewById(R.id.longitudeSettings)
         latitudeSettings = view.findViewById(R.id.latitudeSettings)
+        unitsSwitch = view.findViewById(R.id.unitsSwitch)
 
         settingsSpinner = view.findViewById(R.id.settingsSpinner)
 
@@ -66,6 +84,21 @@ class PopSettings : AppCompatDialogFragment() {
                 }
             }
 
+        }
+
+        citiesSpinner = view.findViewById(R.id.citiesSpinner)
+
+        citiesSpinner.adapter = ArrayAdapter(view.context,android.R.layout.simple_spinner_dropdown_item, listOfCities)
+        citiesSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if(view != null){
+                    Toast.makeText(view!!.context,listOfCities[position], Toast.LENGTH_LONG).show()
+                }
+            }
         }
 
         return builder.create()

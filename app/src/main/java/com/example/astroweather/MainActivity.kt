@@ -331,10 +331,15 @@ class MainActivity : AppCompatActivity() {
         if(id == R.id.settings){
             openDialog()
         }
-//        else if (id == R.id.update){
-//            Config.shouldUpdate = true
-//        }
+        else if (id == R.id.weatherSettings){
+            openWeatherSettings()
+        }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun openWeatherSettings(){
+        var popWeatherSettings:PopWeatherSettings = PopWeatherSettings()
+        popWeatherSettings.show(supportFragmentManager, "dialog 2")
     }
 
     private fun openDialog() {

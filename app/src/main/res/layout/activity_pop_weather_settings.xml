@@ -6,11 +6,10 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent"
-        tools:context=".PopSettings"
-        >
-
+        tools:context=".PopWeatherSettings"
+>
     <TextView
-            android:text="Astro Settings"
+            android:text="Weather Settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/logitudeSettings2" android:textSize="24sp"
             android:textAlignment="center"
@@ -47,5 +46,33 @@
     <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/settingsSpinner"/>
+    <TextView
+            android:text="Ulubione miejsca"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView11" android:textSize="24sp"
+            android:textAlignment="center"/>
+    <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/citiesSpinner"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+                android:text="K"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView" android:layout_weight="1"
+                android:textAlignment="textEnd"/>
+        <Switch
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/unitsSwitch"
+                android:layout_weight="0"
+                android:textAlignment="center"/>
+        <TextView
+                android:text="C"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView9" android:layout_weight="1"/>
+    </LinearLayout>
 
 </android.support.v7.widget.LinearLayoutCompat>

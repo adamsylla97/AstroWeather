@@ -1,16 +1,23 @@
 package com.example.astroweather
 
 object Config{
+    //astro part
     public var longitude: Double = 21.01
     public var latitude: Double = 52.14
     public var invalidData: Boolean = false
     public var refreshRate: Int = 900
     public var sendToast: Boolean = false
 
+    //weather part
+    public var longitudeWeather: Double = 21.01
+    public var latitudeWeahter: Double = 52.14
+    public var weatherInvalidData: Boolean = false
+
     public var shouldUpdate: Boolean = false
     public var firstUsage: Boolean = true
 
     public var userUpdate: Boolean = false
+    public var units: Boolean = true //true = celcius false = kelvin
 
     //shared preferences
     //WeatherBasicFragment
