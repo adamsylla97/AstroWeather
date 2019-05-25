@@ -37,11 +37,9 @@ class PopWeatherSettings: AppCompatDialogFragment() {
                 var validatedData: List<Double> = validateData(longitude,latitude)
                 Log.i("new longitude",validatedData[0].toString())
                 Log.i("new latitude",validatedData[1].toString())
-                Config.longitude = validatedData[0]
-                Config.latitude = validatedData[1]
-                Log.i("config longi",Config.longitude.toString())
-                Log.i("config latit",Config.latitude.toString())
-                Log.i("config inva",Config.invalidData.toString())
+                Config.longitudeWeather = validatedData[0]
+                Config.latitudeWeahter = validatedData[1]
+
                 Config.userUpdate = true
 
                 //switch
@@ -113,14 +111,14 @@ class PopWeatherSettings: AppCompatDialogFragment() {
 
 
                 Log.i("ERROR POPSETTINGS","niepoprawne dane")
-                validatedData.set(0,Config.longitude)
-                validatedData.set(1,Config.latitude)
+                validatedData.set(0,Config.longitudeWeather)
+                validatedData.set(1,Config.latitudeWeahter)
                 Config.sendToast = true
             }
         }catch (e: Exception){
             Log.i("ERROR POPSETTINGS","niepoprawne dane")
-            validatedData.set(0,Config.longitude)
-            validatedData.set(1,Config.latitude)
+            validatedData.set(0,Config.longitudeWeather)
+            validatedData.set(1,Config.latitudeWeahter)
         }
         return validatedData
     }

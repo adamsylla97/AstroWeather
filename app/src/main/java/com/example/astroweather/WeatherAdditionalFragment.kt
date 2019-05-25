@@ -20,8 +20,8 @@ class WeatherAdditionalFragment : Fragment() {
     companion object {
         var baseUrl = "https://api.openweathermap.org/";
         var appId = "39b02c18d58d117fd575ddcb8c32b72d"
-        var lat = Config.latitude.toString()
-        var lon = Config.longitude.toString()
+        var lat = Config.latitudeWeahter.toString()
+        var lon = Config.longitudeWeather.toString()
     }
 
     lateinit var viewFragment: View
@@ -71,9 +71,9 @@ class WeatherAdditionalFragment : Fragment() {
                 try{
                     if(activity != null){
                         activity!!.runOnUiThread {
-                            if((!lon.equals(Config.longitude.toString()) || !lat.equals(Config.latitude.toString())) && Config.invalidData == false){
-                                lon = Config.latitude.toString()
-                                lat = Config.longitude.toString()
+                            if((!lon.equals(Config.longitudeWeather.toString()) || !lat.equals(Config.latitudeWeahter.toString())) && Config.invalidData == false){
+                                lon = Config.longitudeWeather.toString()
+                                lat = Config.latitudeWeahter.toString()
                                 update()
                             }
 

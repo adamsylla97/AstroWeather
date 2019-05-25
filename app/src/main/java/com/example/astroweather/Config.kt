@@ -9,8 +9,8 @@ object Config{
     public var sendToast: Boolean = false
 
     //weather part
-    public var longitudeWeather: Double = 21.01
-    public var latitudeWeahter: Double = 52.14
+    public var longitudeWeather: Double = 31.01
+    public var latitudeWeahter: Double = 42.14
     public var weatherInvalidData: Boolean = false
 
     public var shouldUpdate: Boolean = false

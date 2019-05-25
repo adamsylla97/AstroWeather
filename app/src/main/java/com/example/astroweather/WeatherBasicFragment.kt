@@ -29,8 +29,8 @@ class WeatherBasicFragment : Fragment() {
     companion object {
         var baseUrl = "https://api.openweathermap.org/";
         var appId = "39b02c18d58d117fd575ddcb8c32b72d"
-        var lat: String = Config.latitude.toString();
-        var lon: String = Config.longitude.toString();
+        var lat: String = Config.latitudeWeahter.toString();
+        var lon: String = Config.longitudeWeather.toString();
         var userValue = Config.userUpdate
     }
 
@@ -98,9 +98,9 @@ class WeatherBasicFragment : Fragment() {
                             if(actualTimeWeather!=null)
                                 actualTimeWeather.text = currentDate.toString()
 
-                            if((!lon.equals(Config.longitude.toString()) || !lat.equals(Config.latitude.toString())) && Config.invalidData == false){
-                                lon = Config.latitude.toString()
-                                lat = Config.longitude.toString()
+                            if((!lon.equals(Config.longitudeWeather.toString()) || !lat.equals(Config.latitudeWeahter.toString())) && Config.invalidData == false){
+                                lon = Config.longitudeWeather.toString()
+                                lat = Config.latitudeWeahter.toString()
                                 update()
                                 if(viewFragment.context != null){
                                     Toast.makeText(viewFragment.context,"weather updated",Toast.LENGTH_LONG).show()
@@ -130,8 +130,8 @@ class WeatherBasicFragment : Fragment() {
 
     private fun updateFromSharedPreferences() {
         city.text = Config.city
-        longitudeWeather.text = Config.longitude.toString()
-        latitudeWeather.text = Config.latitude.toString()
+        longitudeWeather.text = Config.longitudeWeather.toString()
+        latitudeWeather.text = Config.latitudeWeahter.toString()
         temperature.text = Config.temperature
         pressure.text = Config.pressure
 
@@ -175,8 +175,8 @@ class WeatherBasicFragment : Fragment() {
                     assert(weatherResponse != null)
 
                     city.text = weatherResponse!!.name
-                    longitudeWeather.text = Config.longitude.toString()
-                    latitudeWeather.text = Config.latitude.toString()
+                    longitudeWeather.text = Config.longitudeWeather.toString()
+                    latitudeWeather.text = Config.latitudeWeahter.toString()
                     temperature.text = getCelcius(weatherResponse.main!!.temp).toString()
                     pressure.text = weatherResponse.main!!.pressure.toString()
 
