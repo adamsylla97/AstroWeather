@@ -20,8 +20,8 @@ class WeatherAdditionalFragment : Fragment() {
     companion object {
         var baseUrl = "https://api.openweathermap.org/";
         var appId = "39b02c18d58d117fd575ddcb8c32b72d"
-        var lat = 23.toString();
-        var lon = 23.toString();
+        var lat = Config.latitude.toString()
+        var lon = Config.longitude.toString()
     }
 
     lateinit var viewFragment: View
@@ -52,15 +52,43 @@ class WeatherAdditionalFragment : Fragment() {
         clouds.text = Config.clouds
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewFragment = inflater.inflate(R.layout.fragment_weather_additional, container, false)
-
-        initLayout()
+    private fun update(){
         if(Config.shouldUpdate){
             getCurrentWeather()
         } else {
             updateFromSharedPreferences()
         }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        viewFragment = inflater.inflate(R.layout.fragment_weather_additional, container, false)
+
+        initLayout()
+        update()
+
+        Thread(Runnable {
+            while (true){
+                try{
+                    if(activity != null){
+                        activity!!.runOnUiThread {
+                            if((!lon.equals(Config.longitude.toString()) || !lat.equals(Config.latitude.toString())) && Config.invalidData == false){
+                                lon = Config.latitude.toString()
+                                lat = Config.longitude.toString()
+                                update()
+                            }
+
+                        }
+                    }
+                } catch (e: Exception){
+                    if(activity != null){
+                        activity!!.finish()
+                    }
+                }
+
+                Thread.sleep(1000)
+
+            }
+        }).start()
 
         return viewFragment
     }

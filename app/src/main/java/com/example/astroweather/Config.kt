@@ -10,6 +10,8 @@ object Config{
     public var shouldUpdate: Boolean = false
     public var firstUsage: Boolean = true
 
+    public var userUpdate: Boolean = false
+
     //shared preferences
     //WeatherBasicFragment
     public var city: String? = null

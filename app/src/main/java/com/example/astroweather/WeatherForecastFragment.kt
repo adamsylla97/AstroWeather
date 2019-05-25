@@ -10,12 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import org.joda.time.DateTime
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,8 +29,8 @@ class WeatherForecastFragment : Fragment() {
         var baseUrl = "https://api.openweathermap.org";
         var appId = "001b0f58045147663b1ea518d34d88b4"
         var cnt = "5"
-        var lat = 23.toString()//Config.latitude.toString();
-        var lon = 23.toString()//Config.longitude.toString();
+        var lat = Config.latitude.toString();
+        var lon = Config.longitude.toString();
     }
 
     lateinit var getForecastWeather: Button
@@ -46,16 +48,47 @@ class WeatherForecastFragment : Fragment() {
             getForecastWeather()
         }
 
-        if(Config.shouldUpdate){
-            getForecastWeather()
-        } else {
-            getForecastWeatherFromSharedPreferences()
-        }
+        update()
+
+        Thread(Runnable {
+            while (true){
+                try{
+                    if(activity != null){
+                        activity!!.runOnUiThread {
+                            if((!lon.equals(Config.longitude.toString()) || !lat.equals(Config.latitude.toString())) && Config.invalidData == false){
+                                lon = Config.latitude.toString()
+                                lat = Config.longitude.toString()
+                                update()
+                                if(fragmentView.context != null){
+                                    Toast.makeText(fragmentView.context,"weather updated",Toast.LENGTH_LONG).show()
+                                }
+                            }
+
+                        }
+                    }
+                } catch (e: Exception){
+                    if(activity != null){
+                        activity!!.finish()
+                    }
+                }
+
+                Thread.sleep(1000)
+
+            }
+        }).start()
 
         //initList()
 
         return fragmentView
 
+    }
+
+    private fun update(){
+        if(Config.shouldUpdate){
+            getForecastWeather()
+        } else {
+            getForecastWeatherFromSharedPreferences()
+        }
     }
 
     private fun getForecastWeatherFromSharedPreferences() {

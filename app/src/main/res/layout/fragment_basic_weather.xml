@@ -11,6 +11,10 @@
     <TextView
             android:text="TextView"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/userUpdateBasic"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/actualTimeWeather"
             android:textAlignment="center"

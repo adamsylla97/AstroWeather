@@ -19,6 +19,9 @@ class PopSettings : AppCompatDialogFragment() {
     var listOfItems = arrayOf("15 sekund","30 minut", "1 godzina", "3 godziny", "6 godzin")
     var refreshRate: Int = 0
 
+    var weatherBasicFragment = WeatherBasicFragment()
+    lateinit var button: Button
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         var builder: AlertDialog.Builder = AlertDialog.Builder(activity)
@@ -40,6 +43,7 @@ class PopSettings : AppCompatDialogFragment() {
                     Log.i("config longi",Config.longitude.toString())
                     Log.i("config latit",Config.latitude.toString())
                     Log.i("config inva",Config.invalidData.toString())
+                Config.userUpdate = true
                 //}
                 Config.refreshRate = refreshRate
                 Log.i("config refresh",Config.refreshRate.toString())
@@ -70,7 +74,16 @@ class PopSettings : AppCompatDialogFragment() {
 
         }
 
+        button = view.findViewById(R.id.updateButtonUser)
+        button.setOnClickListener {
+            changeUserValue()
+        }
+
         return builder.create()
+    }
+
+    fun changeUserValue(){
+        Config.userUpdate = !Config.userUpdate
     }
 
     fun validateData(longitude: String, latitude: String): List<Double>{

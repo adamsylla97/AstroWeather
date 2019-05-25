@@ -331,9 +331,9 @@ class MainActivity : AppCompatActivity() {
         if(id == R.id.settings){
             openDialog()
         }
-        else if (id == R.id.update){
-            Config.shouldUpdate = true
-        }
+//        else if (id == R.id.update){
+//            Config.shouldUpdate = true
+//        }
         return super.onOptionsItemSelected(item)
     }
 

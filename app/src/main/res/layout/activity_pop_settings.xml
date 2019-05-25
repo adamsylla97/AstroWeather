@@ -39,5 +39,9 @@
     <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/settingsSpinner"/>
+    <Button
+            android:text="UPDATE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/updateButtonUser"/>
 
 </android.support.v7.widget.LinearLayoutCompat>

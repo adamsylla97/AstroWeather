@@ -29,8 +29,9 @@ class WeatherBasicFragment : Fragment() {
     companion object {
         var baseUrl = "https://api.openweathermap.org/";
         var appId = "39b02c18d58d117fd575ddcb8c32b72d"
-        var lat = 54.toString()//Config.latitude.toString();
-        var lon = 123.toString()//Config.longitude.toString();
+        var lat: String = Config.latitude.toString();
+        var lon: String = Config.longitude.toString();
+        var userValue = Config.userUpdate
     }
 
     lateinit var viewFragment: View
@@ -42,6 +43,8 @@ class WeatherBasicFragment : Fragment() {
     lateinit var pressure: TextView
     lateinit var updateWeatherButton: Button
     lateinit var weatherIcon: ImageView
+
+    lateinit var userUpdateBasic: TextView
 
     fun initLayout(){
 
@@ -57,10 +60,19 @@ class WeatherBasicFragment : Fragment() {
             getCurrentWeather()
         }
 
+        userUpdateBasic = viewFragment.findViewById(R.id.userUpdateBasic)
     }
 
     fun getCelcius(kelvin: Float): Double{
         return kelvin - 274.15
+    }
+
+    fun update(){
+        if(Config.shouldUpdate){
+            getCurrentWeather()
+        } else {
+            updateFromSharedPreferences()
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -70,12 +82,7 @@ class WeatherBasicFragment : Fragment() {
 
         initLayout()
 
-        if(Config.shouldUpdate){
-            getCurrentWeather()
-            Log.i("WeatherBasicFragment","Hello world")
-        } else {
-            updateFromSharedPreferences()
-        }
+        update()
 
         //clock part
         val sdf = SimpleDateFormat("HH:mm:ss")
@@ -90,6 +97,21 @@ class WeatherBasicFragment : Fragment() {
                         activity!!.runOnUiThread {
                             if(actualTimeWeather!=null)
                                 actualTimeWeather.text = currentDate.toString()
+
+                            if((!lon.equals(Config.longitude.toString()) || !lat.equals(Config.latitude.toString())) && Config.invalidData == false){
+                                lon = Config.latitude.toString()
+                                lat = Config.longitude.toString()
+                                update()
+                                if(viewFragment.context != null){
+                                    Toast.makeText(viewFragment.context,"weather updated",Toast.LENGTH_LONG).show()
+                                }
+                            }
+                            if(userValue != Config.userUpdate){
+                                update()
+                                userUpdateBasic.text = "ccc"
+                                userValue = Config.userUpdate
+                            }
+
                         }
                     }
                 } catch (e: Exception){
@@ -151,9 +173,6 @@ class WeatherBasicFragment : Fragment() {
                 if(response.code() == 200){
                     val weatherResponse: WeatherResponse? = response.body() as WeatherResponse
                     assert(weatherResponse != null)
-                    Log.i("astro Country",weatherResponse!!.sys!!.country)
-                    Log.i("astro City",weatherResponse!!.name)
-                    Log.i("astro Temp", weatherResponse.main!!.temp.toString())
 
                     city.text = weatherResponse!!.name
                     longitudeWeather.text = Config.longitude.toString()
