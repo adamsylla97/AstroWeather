@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,11 +23,12 @@ class WeatherAdditionalFragment : Fragment() {
         var appId = "39b02c18d58d117fd575ddcb8c32b72d"
         var lat = Config.latitudeWeahter.toString()
         var lon = Config.longitudeWeather.toString()
+        var userValue = Config.userUpdate
     }
 
     lateinit var viewFragment: View
 
-    lateinit var tempButton: Button
+//    lateinit var tempButton: Button
     lateinit var sky: TextView
     lateinit var humidity: TextView
     lateinit var clouds: TextView
@@ -39,10 +41,10 @@ class WeatherAdditionalFragment : Fragment() {
         clouds = viewFragment.findViewById(R.id.clouds)
         wind = viewFragment.findViewById(R.id.wind)
 
-        tempButton = viewFragment.findViewById(R.id.tempUpdate)
-        tempButton.setOnClickListener {
-            getCurrentWeather()
-        }
+//        tempButton = viewFragment.findViewById(R.id.tempUpdate)
+//        tempButton.setOnClickListener {
+//            getCurrentWeather()
+//        }
     }
 
     private fun updateFromSharedPreferences() {
@@ -76,7 +78,10 @@ class WeatherAdditionalFragment : Fragment() {
                                 lat = Config.latitudeWeahter.toString()
                                 update()
                             }
-
+                            if(userValue != Config.userUpdate){
+                                update()
+                                userValue = Config.userUpdate
+                            }
                         }
                     }
                 } catch (e: Exception){

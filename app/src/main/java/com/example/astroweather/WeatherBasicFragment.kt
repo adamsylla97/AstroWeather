@@ -41,7 +41,7 @@ class WeatherBasicFragment : Fragment() {
     lateinit var latitudeWeather: TextView
     lateinit var temperature: TextView
     lateinit var pressure: TextView
-    lateinit var updateWeatherButton: Button
+//    lateinit var updateWeatherButton: Button
     lateinit var weatherIcon: ImageView
 
     lateinit var userUpdateBasic: TextView
@@ -54,13 +54,11 @@ class WeatherBasicFragment : Fragment() {
         latitudeWeather = viewFragment.findViewById(R.id.latitudeWeather)
         temperature = viewFragment.findViewById(R.id.temperature)
         pressure = viewFragment.findViewById(R.id.pressure)
-        updateWeatherButton = viewFragment.findViewById(R.id.updateWeatherButton)
         weatherIcon = viewFragment.findViewById(R.id.weatherIcon)
-        updateWeatherButton.setOnClickListener {
-            getCurrentWeather()
-        }
+//        updateWeatherButton.setOnClickListener {
+//            getCurrentWeather()
+//        }
 
-        userUpdateBasic = viewFragment.findViewById(R.id.userUpdateBasic)
     }
 
     fun getCelcius(kelvin: Float): Double{

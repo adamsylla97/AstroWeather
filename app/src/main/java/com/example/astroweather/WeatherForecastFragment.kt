@@ -44,10 +44,10 @@ class WeatherForecastFragment : Fragment() {
         Log.i("oncreate","all is ok")
 
         //getForecastWeather()
-        getForecastWeather = fragmentView.findViewById(R.id.updateButton)
-        getForecastWeather.setOnClickListener {
-            getForecastWeather()
-        }
+//        getForecastWeather = fragmentView.findViewById(R.id.updateButton)
+//        getForecastWeather.setOnClickListener {
+//            getForecastWeather()
+//        }
 
         update()
 

@@ -30,7 +30,7 @@ class PopWeatherSettings: AppCompatDialogFragment() {
             .setNegativeButton("cancel",{ dialogInterface: DialogInterface, i: Int ->
 
             })
-            .setPositiveButton("ok",{ dialog: DialogInterface?, which: Int ->
+            .setPositiveButton("update",{ dialog: DialogInterface?, which: Int ->
                 var longitude: String = longitudeSettings.text.toString()
                 var latitude: String = latitudeSettings.text.toString()
 
