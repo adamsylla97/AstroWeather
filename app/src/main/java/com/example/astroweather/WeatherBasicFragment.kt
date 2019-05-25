@@ -174,10 +174,17 @@ class WeatherBasicFragment : Fragment() {
                     val weatherResponse: WeatherResponse? = response.body() as WeatherResponse
                     assert(weatherResponse != null)
 
+                    lateinit var tempTemperature: String
+                    if(Config.units){
+                        tempTemperature = getCelcius(weatherResponse!!.main!!.temp).toString() + " C"
+                    } else {
+                        tempTemperature = weatherResponse!!.main!!.temp.toString() + " K"
+                    }
+
                     city.text = weatherResponse!!.name
                     longitudeWeather.text = Config.longitudeWeather.toString()
                     latitudeWeather.text = Config.latitudeWeahter.toString()
-                    temperature.text = getCelcius(weatherResponse.main!!.temp).toString()
+                    temperature.text = tempTemperature
                     pressure.text = weatherResponse.main!!.pressure.toString()
 
                    // weatherIcon.setImageResource(R.drawable.android01d)

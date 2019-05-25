@@ -40,7 +40,7 @@ class PopWeatherSettings: AppCompatDialogFragment() {
                 Config.longitudeWeather = validatedData[0]
                 Config.latitudeWeahter = validatedData[1]
 
-                Config.userUpdate = true
+                Config.userUpdate = !Config.userUpdate
 
                 //switch
 
