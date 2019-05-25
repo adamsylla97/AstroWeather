@@ -6,16 +6,22 @@ class WeatherResponse {
 
     @SerializedName("coord")
     var coord: Coord? = null
+
     @SerializedName("sys")
     var sys: Sys? = null
+
     @SerializedName("weather")
     var weather: Array<Weather>? = null
+
     @SerializedName("main")
     var main: Main? = null
+
     @SerializedName("wind")
     var wind: Wind? = null
+
     @SerializedName("rain")
     var rain: Rain? = null
+
     @SerializedName("clouds")
     var clouds: Clouds? = null
     @SerializedName("dt")

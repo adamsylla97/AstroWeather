@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         if(connected){
             Config.shouldUpdate = true
             setupSharedPreferences()
+            setupSharedPreferencesForForecastWeather()
             Toast.makeText(this,"we are connected",Toast.LENGTH_LONG).show()
         } else {
             Config.shouldUpdate = false
@@ -73,45 +74,53 @@ class MainActivity : AppCompatActivity() {
     private fun getDataFromSharedPreferences(){
 
         sharedPreferences = this.getSharedPreferences(PREFS_FILENAME,0)
+
+        //basic weather
         Config.city = sharedPreferences!!.getString("city","null")
         Config.temperature = sharedPreferences!!.getString("temperature","null")
         Config.weatherIcon = sharedPreferences!!.getString("weatherIcon","null")
         Config.pressure = sharedPreferences!!.getString("pressure","null")
 
+        //additional weather
         Config.windSpeed = sharedPreferences!!.getString("windSpeed","null")
         Config.humidity = sharedPreferences!!.getString("humidity","null")
         Config.clouds = sharedPreferences!!.getString("clouds","null")
         Config.sky = sharedPreferences!!.getString("sky","null")
 
-        Config.day1 = sharedPreferences!!.getString("day1",Config.day1)
-        Config.temp1 =  sharedPreferences!!.getString("temp1",Config.temp1)
-        Config.pressure1 = sharedPreferences!!.getString("pressure1",Config.pressure1)
-        Config.humidity1 = sharedPreferences!!.getString("humidity1",Config.humidity1)
-        Config.clouds1 = sharedPreferences!!.getString("clouds1",Config.clouds1)
+        //forecast weather day1
+        Config.day1 = sharedPreferences!!.getString("day1","null")
+        Config.temp1 =  sharedPreferences!!.getString("temp1","null")
+        Config.pressure1 = sharedPreferences!!.getString("pressure1","null")
+        Config.humidity1 = sharedPreferences!!.getString("humidity1","null")
+        Config.clouds1 = sharedPreferences!!.getString("clouds1","null")
 
-        Config.day2 = sharedPreferences!!.getString("day2",Config.day2)
-        Config.temp2 =  sharedPreferences!!.getString("temp2",Config.temp2)
-        Config.pressure2 = sharedPreferences!!.getString("pressure2",Config.pressure2)
-        Config.humidity2 = sharedPreferences!!.getString("humidity2",Config.humidity2)
-        Config.clouds2 = sharedPreferences!!.getString("clouds2",Config.clouds2)
+        //forecast weather day2
+        Config.day2 = sharedPreferences!!.getString("day2","null")
+        Config.temp2 =  sharedPreferences!!.getString("temp2","null")
+        Config.pressure2 = sharedPreferences!!.getString("pressure2","null")
+        Config.humidity2 = sharedPreferences!!.getString("humidity2","null")
+        Config.clouds2 = sharedPreferences!!.getString("clouds2","null")
 
-        Config.day3 = sharedPreferences!!.getString("day3",Config.day3)
-        Config.temp3 =  sharedPreferences!!.getString("temp3",Config.temp3)
-        Config.pressure3 = sharedPreferences!!.getString("pressure3",Config.pressure3)
-        Config.humidity3 = sharedPreferences!!.getString("humidity3",Config.humidity3)
-        Config.clouds3 = sharedPreferences!!.getString("clouds3",Config.clouds3)
+        //forecast weather day3
+        Config.day3 = sharedPreferences!!.getString("day3","null")
+        Config.temp3 =  sharedPreferences!!.getString("temp3","null")
+        Config.pressure3 = sharedPreferences!!.getString("pressure3","null")
+        Config.humidity3 = sharedPreferences!!.getString("humidity3","null")
+        Config.clouds3 = sharedPreferences!!.getString("clouds3","null")
 
-        Config.day4 = sharedPreferences!!.getString("day1",Config.day1)
-        Config.temp4 =  sharedPreferences!!.getString("temp1",Config.temp1)
-        Config.pressure4 = sharedPreferences!!.getString("pressure1",Config.pressure1)
-        Config.humidity4 = sharedPreferences!!.getString("humidity1",Config.humidity1)
-        Config.clouds4 = sharedPreferences!!.getString("clouds1",Config.clouds1)
+        //forecast weather day4
+        Config.day4 = sharedPreferences!!.getString("day1","null")
+        Config.temp4 =  sharedPreferences!!.getString("temp1","null")
+        Config.pressure4 = sharedPreferences!!.getString("pressure1","null")
+        Config.humidity4 = sharedPreferences!!.getString("humidity1","null")
+        Config.clouds4 = sharedPreferences!!.getString("clouds1","null")
 
-        Config.day5 = sharedPreferences!!.getString("day1",Config.day1)
-        Config.temp5 =  sharedPreferences!!.getString("temp1",Config.temp1)
-        Config.pressure5 = sharedPreferences!!.getString("pressure1",Config.pressure1)
-        Config.humidity5 = sharedPreferences!!.getString("humidity1",Config.humidity1)
-        Config.clouds5 = sharedPreferences!!.getString("clouds1",Config.clouds1)
+        //forecast weather day5
+        Config.day5 = sharedPreferences!!.getString("day1","null")
+        Config.temp5 =  sharedPreferences!!.getString("temp1","null")
+        Config.pressure5 = sharedPreferences!!.getString("pressure1","null")
+        Config.humidity5 = sharedPreferences!!.getString("humidity1","null")
+        Config.clouds5 = sharedPreferences!!.getString("clouds1","null")
 
     }
 
@@ -239,6 +248,8 @@ class MainActivity : AppCompatActivity() {
                     editor.putString("pressure5",Config.pressure5)
                     editor.putString("humidity5",Config.humidity5)
                     editor.putString("clouds5",Config.clouds5)
+
+                    editor.apply()
 
                 } else {
                     Log.i("error",response.code().toString())

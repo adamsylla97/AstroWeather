@@ -48,12 +48,77 @@ class WeatherForecastFragment : Fragment() {
 
         if(Config.shouldUpdate){
             getForecastWeather()
+        } else {
+            getForecastWeatherFromSharedPreferences()
         }
 
         //initList()
 
         return fragmentView
 
+    }
+
+    private fun getForecastWeatherFromSharedPreferences() {
+//        var d = getDay(i+1)
+//        var t = temperature.toString()
+//        var h = weatherForecastResponse!!.list!![i]!!.humidity.toString()
+//        var p = weatherForecastResponse!!.list!![i]!!.pressure.toString()
+//        var c = weatherForecastResponse!!.list!![i]!!.clouds.toString()
+//
+//        var temp: ForecastDayInformation? = ForecastDayInformation(d,t,h,p,c)
+//
+//        weatherForecast.add(temp!!)
+
+        weatherForecast.clear()
+
+        //day1
+        var d = Config.day1
+        var t = Config.temp1
+        var h = Config.humidity1
+        var p = Config.humidity1
+        var c = Config.clouds1
+
+        var temp: ForecastDayInformation? = ForecastDayInformation(d!!, t!!, h!!, p!!, c!!)
+        weatherForecast.add(temp!!)
+
+        d = Config.day2
+        t = Config.temp2
+        h = Config.humidity2
+        p = Config.humidity2
+        c = Config.clouds2
+
+        temp = ForecastDayInformation(d!!,t!!,h!!,p!!,c!!)
+        weatherForecast.add(temp!!)
+
+        d = Config.day3
+        t = Config.temp3
+        h = Config.humidity3
+        p = Config.humidity3
+        c = Config.clouds3
+
+        temp = ForecastDayInformation(d!!,t!!,h!!,p!!,c!!)
+        weatherForecast.add(temp!!)
+
+        d = Config.day4
+        t = Config.temp4
+        h = Config.humidity4
+        p = Config.humidity4
+        c = Config.clouds4
+
+        temp = ForecastDayInformation(d!!,t!!,h!!,p!!,c!!)
+        weatherForecast.add(temp!!)
+
+        d = Config.day5
+        t = Config.temp5
+        h = Config.humidity5
+        p = Config.humidity5
+        c = Config.clouds5
+
+        temp = ForecastDayInformation(d!!,t!!,h!!,p!!,c!!)
+        weatherForecast.add(temp!!)
+
+        initList()
+        updateRecyclerView()
     }
 
     fun initList(){
@@ -77,15 +142,10 @@ class WeatherForecastFragment : Fragment() {
     fun getDay(addDays: Int):String{
 
         val aLocale = Locale.Builder().setLanguage("pl").setRegion("PL").build()
-
         var simpleDateFormat: SimpleDateFormat = SimpleDateFormat("EEEE")
-
         var mojaData: Date = Date()
         var dt: DateTime = DateTime(mojaData)
-
         var dayOfWeek = dt.plusDays(addDays).dayOfWeek().get()
-
-
 
         when(dayOfWeek){
             1 -> return "poniedzialek"
@@ -96,11 +156,8 @@ class WeatherForecastFragment : Fragment() {
             6 -> return "sobota"
             7 -> return "niedziela"
         }
-
         return "nie ma takiego dnia"
-
     }
-
 
     fun getCelcius(kelvin: Double): Double{
         return kelvin - 274.15
@@ -123,7 +180,7 @@ class WeatherForecastFragment : Fragment() {
 
         call.enqueue(object : Callback<WeatherForecastResponse> {
             override fun onFailure(call: Call<WeatherForecastResponse>, t: Throwable) {
-                Log.i("no cos chyba poszlo","nie tak XD")
+                Log.i("no cos chyba poszlo","nie tak")
                 t.printStackTrace()
             }
 
@@ -131,7 +188,6 @@ class WeatherForecastFragment : Fragment() {
 
                 if(response.code() == 200){
                     val weatherForecastResponse: WeatherForecastResponse? = response.body()
-
 
                     weatherForecast.clear()
 
