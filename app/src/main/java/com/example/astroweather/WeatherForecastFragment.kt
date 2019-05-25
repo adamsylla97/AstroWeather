@@ -31,6 +31,7 @@ class WeatherForecastFragment : Fragment() {
         var cnt = "5"
         var lat = Config.latitudeWeahter.toString();
         var lon = Config.longitudeWeather.toString();
+        var userValue = Config.userUpdate
     }
 
     lateinit var getForecastWeather: Button
@@ -63,6 +64,10 @@ class WeatherForecastFragment : Fragment() {
                                     Toast.makeText(fragmentView.context,"weather updated",Toast.LENGTH_LONG).show()
                                 }
                             }
+                            if(userValue != Config.userUpdate){
+                                update()
+                                userValue = Config.userUpdate
+                            }
 
                         }
                     }
@@ -92,16 +97,6 @@ class WeatherForecastFragment : Fragment() {
     }
 
     private fun getForecastWeatherFromSharedPreferences() {
-//        var d = getDay(i+1)
-//        var t = temperature.toString()
-//        var h = weatherForecastResponse!!.list!![i]!!.humidity.toString()
-//        var p = weatherForecastResponse!!.list!![i]!!.pressure.toString()
-//        var c = weatherForecastResponse!!.list!![i]!!.clouds.toString()
-//
-//        var temp: ForecastDayInformation? = ForecastDayInformation(d,t,h,p,c)
-//
-//        weatherForecast.add(temp!!)
-
         weatherForecast.clear()
 
         //day1
@@ -225,8 +220,13 @@ class WeatherForecastFragment : Fragment() {
                     weatherForecast.clear()
 
                     for(i in 0..4){
+                        lateinit var temperature: String
+                        if(Config.units){
+                            temperature = getCelcius(weatherForecastResponse!!.list!![i]!!.temp!!.day).toString() + " C"
+                        } else {
+                            temperature = weatherForecastResponse!!.list!![i]!!.temp!!.day.toString() + " K"
+                        }
 
-                        var temperature = getCelcius(weatherForecastResponse!!.list!![i]!!.temp!!.day)
 
                         var d = getDay(i+1)
                         var t = temperature.toString()
