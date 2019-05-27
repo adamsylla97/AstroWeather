@@ -8,8 +8,11 @@ object Config{
     public var refreshRate: Int = 900
     public var sendToast: Boolean = false
 
+    //sp test
+    public var counter = 1
+
     //weather part
-    public var updateDate: String = "22:02 27.05.2019"
+    public var updateDate: String = "2019-05-25T23:09:00.000+02:00"
 
     public var longitudeWeather: Double = 31.01
     public var latitudeWeahter: Double = 42.14

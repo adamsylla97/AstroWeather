@@ -25,6 +25,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.DateFormat
+import org.joda.*
+import org.joda.time.Days
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,9 +38,81 @@ class MainActivity : AppCompatActivity() {
     var sharedPreferences: SharedPreferences? = null
     val PREFS_FILENAME = "myprefs"
 
+    fun getTimeDifference(): Boolean{
+        sharedPreferences = this.getSharedPreferences(PREFS_FILENAME,0)
+        Config.updateDate = sharedPreferences!!.getString("updateDate","null")
+
+        var dateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+        var date: Date = Date()
+
+        var dateLastUpdate = Config.updateDate.substring(0,10) + " " + Config.updateDate.substring(12,20)
+        var dateNow = dateFormat.format(date)
+
+        var d1: Date? = null
+        var d2: Date? = null
+
+        var daysDiff = 0
+
+        var dt1: DateTime = DateTime(Date())
+        var dt2: DateTime
+
+        try{
+            d1 = dateFormat.parse(dateLastUpdate)
+            d2 = dateFormat.parse(dateNow)
+
+            dt1 = DateTime(d1)
+            dt2 = DateTime(d2)
+            val editor = sharedPreferences!!.edit()
+            Config.updateDate = dt2.toString()
+            editor.putString("updateDate",Config.updateDate)
+            Log.i("datetimeabcde", "to jest pakowane: " + Config.updateDate)
+            editor.apply()
+
+            daysDiff = Days.daysBetween(dt1,dt2).days
+            Log.i("datetimeabcde", "day1 " + dt1)
+            Log.i("datetimeabcde", "day2 " + dt2)
+            Log.i("datetimeabcde",daysDiff.toString())
+
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+
+        Log.i("datetimeabcde",daysDiff.toString() + " abb")
+
+        when(daysDiff >= 1){
+            true -> {
+                return true
+            }
+            false -> return false
+        }
+
+//        if(daysDiff >= 1){
+//            Log.i("datetimeabcde","im here and im returning true")
+//            Config.updateDate = dt1.toString()
+//            return true
+//        } else {
+//            return false
+//        }
+    }
+
+    fun sharedPreferencesTest(){
+        sharedPreferences = this.getSharedPreferences(PREFS_FILENAME,0)
+        Config.updateDate = sharedPreferences!!.getString("updateDate","null")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        sharedPreferences = this.getSharedPreferences(PREFS_FILENAME,0)
+        Config.firstUsage = sharedPreferences!!.getBoolean("firstUsage",true)
+        if(Config.firstUsage){
+            Toast.makeText(this,"FIRSTUSAGE",Toast.LENGTH_LONG).show()
+            val editor = sharedPreferences!!.edit()
+            editor.putString("updateDate",Config.updateDate)
+            editor.putBoolean("firstUsage",false)
+            editor.apply()
+        }
 
         var isTablet : Boolean = resources.getBoolean(R.bool.isTablet)
         if(!isTablet){
@@ -46,6 +121,7 @@ class MainActivity : AppCompatActivity() {
             viewPager.adapter = fragmentColleactionAdapter
             viewPager.offscreenPageLimit = 5
         }
+
 
         var connected: Boolean = false
 
@@ -58,12 +134,11 @@ class MainActivity : AppCompatActivity() {
             connected = true
         } else
             connected = false
-
-        if(connected){
+        if(connected && getTimeDifference()){
             Config.shouldUpdate = true
             setupSharedPreferences()
             setupSharedPreferencesForForecastWeather()
-            Toast.makeText(this,"we are connected",Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"we are connected and updated",Toast.LENGTH_LONG).show()
         } else {
             Config.shouldUpdate = false
             getDataFromSharedPreferences()
