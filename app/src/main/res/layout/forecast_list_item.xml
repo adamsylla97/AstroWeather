@@ -6,32 +6,66 @@
                 android:id="@+id/parentItemLayout">
 
     <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/day"/>
-
-
-    <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/temp"/>
+            android:text="Dzien"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView15" android:textStyle="bold"
+            android:background="#66cdaa"/>
     <TextView
             android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/clouds"/>
-    <TextView
-            android:text="TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/pressure"/>
+            android:id="@+id/day"
+            android:background="#66cdaa"/>
+
 
     <TextView
+            android:text="Temperatura"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView21" android:textStyle="bold"
+            android:background="#66cdaa"/>
+    <TextView
             android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/humidity"/>
+            android:id="@+id/temp"
+            android:background="#66cdaa"/>
+    <TextView
+            android:text="Zachmurzenie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView23" android:textStyle="bold"
+            android:background="#66cdaa"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/clouds"
+            android:background="#66cdaa"/>
+    <TextView
+            android:text="Cisnienie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView24" android:textStyle="bold"
+            android:background="#66cdaa"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/pressure"
+            android:background="#66cdaa"/>
+
+    <TextView
+            android:text="Wilgotnosc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView25" android:textStyle="bold"
+            android:background="#66cdaa"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/humidity"
+            android:background="#66cdaa"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView26"
+            android:background="?android:attr/colorPrimary"/>
 
 </LinearLayout>
