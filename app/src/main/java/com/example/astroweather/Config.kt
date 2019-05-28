@@ -8,9 +8,6 @@ object Config{
     public var refreshRate: Int = 900
     public var sendToast: Boolean = false
 
-    //sp test
-    public var counter = 1
-
     //weather part
     public var updateDate: String = "2019-05-25T23:09:00.000+02:00"
 
@@ -23,6 +20,8 @@ object Config{
 
     public var userUpdate: Boolean = false
     public var units: Boolean = true //true = celcius false = kelvin
+
+    public var favCities: List<String>? = null
 
     //shared preferences
     //WeatherBasicFragment

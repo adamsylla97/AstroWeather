@@ -132,6 +132,10 @@ class MainActivity : AppCompatActivity() {
                 setupSharedPreferences()
                 setupSharedPreferencesForForecastWeather()
                 Toast.makeText(this,"we are connected and updated",Toast.LENGTH_LONG).show()
+            } else {
+                Config.shouldUpdate = false
+                getDataFromSharedPreferences()
+                Toast.makeText(this,"we are connected, but...",Toast.LENGTH_LONG).show()
             }
         } else {
             Config.shouldUpdate = false
