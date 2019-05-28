@@ -53,6 +53,7 @@ class PopWeatherSettings: AppCompatDialogFragment() {
                 }
 
                 //}
+                Config.shouldUpdate = true
                 Config.refreshRate = refreshRate
                 Log.i("config refresh",Config.refreshRate.toString())
 

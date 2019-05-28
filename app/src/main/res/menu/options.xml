@@ -5,5 +5,7 @@
           android:id="@+id/settings" />
     <item android:title="Weather Settings"
           android:id="@+id/weatherSettings" />
+    <item android:title="Add City"
+          android:id="@+id/addCitySettings"/>
 
 </menu>

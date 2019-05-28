@@ -85,14 +85,6 @@ class MainActivity : AppCompatActivity() {
             }
             false -> return false
         }
-
-//        if(daysDiff >= 1){
-//            Log.i("datetimeabcde","im here and im returning true")
-//            Config.updateDate = dt1.toString()
-//            return true
-//        } else {
-//            return false
-//        }
     }
 
     fun sharedPreferencesTest(){
@@ -134,11 +126,13 @@ class MainActivity : AppCompatActivity() {
             connected = true
         } else
             connected = false
-        if(connected && getTimeDifference()){
+        if(connected){
             Config.shouldUpdate = true
-            setupSharedPreferences()
-            setupSharedPreferencesForForecastWeather()
-            Toast.makeText(this,"we are connected and updated",Toast.LENGTH_LONG).show()
+            if(getTimeDifference()){
+                setupSharedPreferences()
+                setupSharedPreferencesForForecastWeather()
+                Toast.makeText(this,"we are connected and updated",Toast.LENGTH_LONG).show()
+            }
         } else {
             Config.shouldUpdate = false
             getDataFromSharedPreferences()
@@ -409,7 +403,15 @@ class MainActivity : AppCompatActivity() {
         else if (id == R.id.weatherSettings){
             openWeatherSettings()
         }
+        else if (id == R.id.addCitySettings){
+            openAddCityDialog()
+        }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun openAddCityDialog() {
+        var addCity: PopAddCity = PopAddCity()
+        addCity.show(supportFragmentManager, "dialog add city")
     }
 
     private fun openWeatherSettings(){

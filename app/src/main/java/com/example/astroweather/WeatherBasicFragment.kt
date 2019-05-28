@@ -44,8 +44,6 @@ class WeatherBasicFragment : Fragment() {
 //    lateinit var updateWeatherButton: Button
     lateinit var weatherIcon: ImageView
 
-    lateinit var userUpdateBasic: TextView
-
     fun initLayout(){
 
         actualTimeWeather = viewFragment.findViewById(R.id.actualTimeWeather)
@@ -106,7 +104,6 @@ class WeatherBasicFragment : Fragment() {
                             }
                             if(userValue != Config.userUpdate){
                                 update()
-                                userUpdateBasic.text = "ccc"
                                 userValue = Config.userUpdate
                             }
 
