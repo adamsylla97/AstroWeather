@@ -10,6 +10,7 @@ object Config{
 
     //weather part
     public var updateDate: String = "2019-05-25T23:09:00.000+02:00"
+    public var isConnected: Boolean = false
 
     public var longitudeWeather: Double = 31.01
     public var latitudeWeahter: Double = 42.14
@@ -21,7 +22,7 @@ object Config{
     public var userUpdate: Boolean = false
     public var units: Boolean = true //true = celcius false = kelvin
 
-    public var favCities: List<String>? = null
+    public var favCities: List<CityData>? = null
 
     //shared preferences
     //WeatherBasicFragment
