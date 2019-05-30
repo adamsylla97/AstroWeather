@@ -25,6 +25,7 @@ class Utils {
             var editor: SharedPreferences.Editor = sharedPreferences!!.edit()
             var gson: Gson = Gson()
             var json: String = gson.toJson(Config.favCities)
+            Log.i("favciries",json)
             editor.putString("favcities",json)
             editor.apply()
         }
@@ -35,6 +36,7 @@ class Utils {
             if(json!=null){
                 val type = object : TypeToken<ArrayList<CityData>>() {}.type
                 var listToConfig: List<CityData> = gson.fromJson(json,type)
+                Log.i("favci",listToConfig[1].toString())
                 Config.favCities = listToConfig
             }
         }

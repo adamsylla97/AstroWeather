@@ -94,13 +94,15 @@ class PopWeatherSettings: AppCompatDialogFragment() {
             }
 
         }
-
+        Utils.loadFromSharedPreferences()
         listOfCities = Config.favCities as ArrayList<CityData>
         listOfCities.forEach{
             listOfCityNames.add(it.name)
         }
 
         citiesSpinner = view.findViewById(R.id.citiesSpinner)
+
+        Utils.loadFromSharedPreferences()
 
         citiesSpinner.adapter = ArrayAdapter(view.context,android.R.layout.simple_spinner_dropdown_item, listOfCityNames)
         citiesSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{

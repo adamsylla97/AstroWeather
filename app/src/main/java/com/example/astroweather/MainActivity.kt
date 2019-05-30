@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
         favCityList.add(city3)
 
         Config.favCities = favCityList
-        Utils.saveToSharedPreferences()
+        //Utils.saveToSharedPreferences()
 
     }
 
@@ -158,6 +158,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //shared preferences
+
         if(connected){
             Config.shouldUpdate = true
             if(getTimeDifference()){

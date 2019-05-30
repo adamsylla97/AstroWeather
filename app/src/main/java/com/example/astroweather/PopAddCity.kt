@@ -23,6 +23,7 @@ class PopAddCity: AppCompatDialogFragment() {
         tempList = Config.favCities as ArrayList<CityData>
         tempList.add(newCity)
         Config.favCities = tempList
+        Utils.saveToSharedPreferences()
 
     }
 
@@ -39,6 +40,7 @@ class PopAddCity: AppCompatDialogFragment() {
                 var name = nameCity.text.toString()
                 var latitude = latitudeCity.text.toString().toDouble()
                 var longitude = longitudeCity.text.toString().toDouble()
+                Utils.loadFromSharedPreferences()
                 var tempCity = CityData(name,longitude,latitude)
                 addCityToList(tempCity)
                 Toast.makeText(view.context,"city added",Toast.LENGTH_LONG).show()
