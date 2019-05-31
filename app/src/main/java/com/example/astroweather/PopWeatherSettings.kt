@@ -15,10 +15,8 @@ class PopWeatherSettings: AppCompatDialogFragment() {
 
     lateinit var longitudeSettings: EditText
     lateinit var latitudeSettings: EditText
-    lateinit var settingsSpinner: Spinner
     lateinit var citiesSpinner: Spinner
     lateinit var unitsSwitch: Switch
-    var listOfItems = arrayOf("15 sekund","30 minut", "1 godzina", "3 godziny", "6 godzin")
     var listOfCities = ArrayList<CityData>()
     var listOfCityNames = ArrayList<String>()
     var refreshRate: Int = 0
@@ -54,7 +52,6 @@ class PopWeatherSettings: AppCompatDialogFragment() {
                     Log.i("switch","kelvin")
                 }
 
-                //}
                 Config.shouldUpdate = true
                 Config.refreshRate = refreshRate
                 Log.i("config refresh",Config.refreshRate.toString())
@@ -73,27 +70,6 @@ class PopWeatherSettings: AppCompatDialogFragment() {
         latitudeSettings = view.findViewById(R.id.latitudeSettings)
         unitsSwitch = view.findViewById(R.id.unitsSwitch)
 
-        settingsSpinner = view.findViewById(R.id.settingsSpinner)
-
-        settingsSpinner.adapter = ArrayAdapter(view.context,android.R.layout.simple_spinner_dropdown_item, listOfItems)
-        settingsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                if(view != null){
-                    Toast.makeText(view!!.context,listOfItems[position], Toast.LENGTH_LONG).show()
-                }
-                when(position){
-                    0 -> refreshRate = 15
-                    1 -> refreshRate = 1800
-                    2 -> refreshRate = 3600
-                    3 -> refreshRate = 10800
-                    4 -> refreshRate = 21600
-                }
-            }
-
-        }
         Utils.loadFromSharedPreferences()
         listOfCities = Config.favCities as ArrayList<CityData>
         listOfCities.forEach{
