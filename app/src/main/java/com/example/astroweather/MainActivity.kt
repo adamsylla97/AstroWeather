@@ -175,12 +175,12 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Config.shouldUpdate = false
                 Utils.getDataFromSharedPreferences()
-                Toast.makeText(this,"we are connected, but...",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"we are connected, but we were updatind recently",Toast.LENGTH_LONG).show()
             }
         } else {
             Config.shouldUpdate = false
             Utils.getDataFromSharedPreferences()
-            Toast.makeText(this,"we are NOT connected",Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"we are NOT connected, and data may be outdated",Toast.LENGTH_LONG).show()
         }
     }
 
