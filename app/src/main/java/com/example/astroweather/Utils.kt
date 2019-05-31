@@ -143,7 +143,7 @@ class Utils {
 
             call.enqueue(object : Callback<WeatherForecastResponse> {
                 override fun onFailure(call: Call<WeatherForecastResponse>, t: Throwable) {
-                    Log.i("no cos chyba poszlo","nie tak XD")
+                    Log.i("no cos chyba poszlo","nie tak")
                     t.printStackTrace()
                 }
 
@@ -155,7 +155,11 @@ class Utils {
                         val editor = sharedPreferences!!.edit()
 
                         Config.day1 = getDay(1)
-                        Config.temp1 = getCelcius(weatherForecastResponse!!.list!![0]!!.temp!!.day).toString()
+                        if(Config.units){
+                            Config.temp1 = getCelcius(weatherForecastResponse!!.list!![0]!!.temp!!.day).toString()
+                        } else {
+                            Config.temp1 = weatherForecastResponse!!.list!![0]!!.temp!!.day.toString()
+                        }
                         Config.pressure1 = weatherForecastResponse!!.list!![0]!!.humidity.toString()
                         Config.humidity1 = weatherForecastResponse!!.list!![0]!!.pressure.toString()
                         Config.clouds1 = weatherForecastResponse!!.list!![0]!!.clouds.toString()
@@ -167,7 +171,11 @@ class Utils {
                         editor.putString("clouds1",Config.clouds1)
 
                         Config.day2 = getDay(2)
-                        Config.temp2 = getCelcius(weatherForecastResponse!!.list!![1]!!.temp!!.day).toString()
+                        if(Config.units){
+                            Config.temp2 = getCelcius(weatherForecastResponse!!.list!![1]!!.temp!!.day).toString()
+                        } else {
+                            Config.temp2 = weatherForecastResponse!!.list!![1]!!.temp!!.day.toString()
+                        }
                         Config.pressure2 = weatherForecastResponse!!.list!![1]!!.humidity.toString()
                         Config.humidity2 = weatherForecastResponse!!.list!![1]!!.pressure.toString()
                         Config.clouds2 = weatherForecastResponse!!.list!![1]!!.clouds.toString()
@@ -179,7 +187,11 @@ class Utils {
                         editor.putString("clouds2",Config.clouds2)
 
                         Config.day3 = getDay(3)
-                        Config.temp3 = getCelcius(weatherForecastResponse!!.list!![2]!!.temp!!.day).toString()
+                        if(Config.units){
+                            Config.temp3 = getCelcius(weatherForecastResponse!!.list!![2]!!.temp!!.day).toString()
+                        } else {
+                            Config.temp3 = weatherForecastResponse!!.list!![2]!!.temp!!.day.toString()
+                        }
                         Config.pressure3 = weatherForecastResponse!!.list!![2]!!.humidity.toString()
                         Config.humidity3 = weatherForecastResponse!!.list!![2]!!.pressure.toString()
                         Config.clouds3 = weatherForecastResponse!!.list!![2]!!.clouds.toString()
@@ -191,7 +203,11 @@ class Utils {
                         editor.putString("clouds3",Config.clouds3)
 
                         Config.day4 = getDay(4)
-                        Config.temp4 = getCelcius(weatherForecastResponse!!.list!![3]!!.temp!!.day).toString()
+                        if(Config.units){
+                            Config.temp4 = getCelcius(weatherForecastResponse!!.list!![3]!!.temp!!.day).toString()
+                        } else {
+                            Config.temp4 = weatherForecastResponse!!.list!![3]!!.temp!!.day.toString()
+                        }
                         Config.pressure4 = weatherForecastResponse!!.list!![3]!!.humidity.toString()
                         Config.humidity4 = weatherForecastResponse!!.list!![3]!!.pressure.toString()
                         Config.clouds4 = weatherForecastResponse!!.list!![3]!!.clouds.toString()
@@ -203,7 +219,11 @@ class Utils {
                         editor.putString("clouds4",Config.clouds4)
 
                         Config.day5 = getDay(5)
-                        Config.temp5 = getCelcius(weatherForecastResponse!!.list!![4]!!.temp!!.day).toString()
+                        if(Config.units){
+                            Config.temp5 = getCelcius(weatherForecastResponse!!.list!![4]!!.temp!!.day).toString()
+                        } else {
+                            Config.temp5 = weatherForecastResponse!!.list!![4]!!.temp!!.day.toString()
+                        }
                         Config.pressure5 = weatherForecastResponse!!.list!![4]!!.humidity.toString()
                         Config.humidity5 = weatherForecastResponse!!.list!![4]!!.pressure.toString()
                         Config.clouds5 = weatherForecastResponse!!.list!![4]!!.clouds.toString()
@@ -247,7 +267,11 @@ class Utils {
                         val weatherResponse: WeatherResponse? = response.body() as WeatherResponse
 
                         Config.city = weatherResponse!!.name
-                        Config.temperature = getCelcius(weatherResponse!!.main!!.temp).toString()
+                        if(Config.units){
+                            Config.temperature = getCelcius(weatherResponse!!.main!!.temp).toString() + " C"
+                        } else {
+                            Config.temperature = weatherResponse!!.main!!.temp.toString() + " K"
+                        }
                         Config.pressure = weatherResponse!!.main!!.pressure.toString()
                         Config.weatherIcon = weatherResponse!!.weather!![0]!!.icon
 

@@ -14,7 +14,6 @@ object Config{
 
     public var longitudeWeather: Double = 31.01
     public var latitudeWeahter: Double = 42.14
-    public var weatherInvalidData: Boolean = false
 
     public var shouldUpdate: Boolean = false
     public var firstUsage: Boolean = true
