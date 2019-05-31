@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager
     private var fragmentColleactionAdapter: FragmentCollectionAdapter? = null
+    private var tabletFragmentCollectionAdapter: TabletFragmentCollectionAdapter? = null
 
     var sharedPreferences: SharedPreferences? = null
     val PREFS_FILENAME = "myprefs"
@@ -127,21 +128,40 @@ class MainActivity : AppCompatActivity() {
             fragmentColleactionAdapter = FragmentCollectionAdapter(supportFragmentManager)
             viewPager.adapter = fragmentColleactionAdapter
             viewPager.offscreenPageLimit = 5
+        } else {
+            viewPager = findViewById(R.id.tabletPager)
+            tabletFragmentCollectionAdapter = TabletFragmentCollectionAdapter(supportFragmentManager)
+            viewPager.adapter = tabletFragmentCollectionAdapter
+            viewPager.offscreenPageLimit = 5
         }
 
         var connected: Boolean = false
-
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).state == NetworkInfo.State.CONNECTED || connectivityManager.getNetworkInfo(
-                ConnectivityManager.TYPE_WIFI
-            ).state == NetworkInfo.State.CONNECTED
-        ) {
-            //we are connected to a network
-            connected = true
-            Config.isConnected = true
-        } else{
-            connected = false
-            Config.isConnected = false
+
+        if(!isTablet){
+            if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).state == NetworkInfo.State.CONNECTED || connectivityManager.getNetworkInfo(
+                    ConnectivityManager.TYPE_WIFI
+                ).state == NetworkInfo.State.CONNECTED
+            ) {
+                //we are connected to a network
+                connected = true
+                Config.isConnected = true
+            } else{
+                connected = false
+                Config.isConnected = false
+            }
+        } else {
+            if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).state == NetworkInfo.State.CONNECTED || connectivityManager.getNetworkInfo(
+                    ConnectivityManager.TYPE_WIFI
+                ).state == NetworkInfo.State.CONNECTED
+            ){
+                //we are connected to a network
+                connected = true
+                Config.isConnected = true
+            } else{
+                connected = false
+                Config.isConnected = false
+            }
         }
 
         //shared preferences

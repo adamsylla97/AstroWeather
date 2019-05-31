@@ -7,20 +7,26 @@
               android:orientation="vertical"
               tools:context=".MainActivity">
 
-    <fragment
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:name="com.example.astroweather.SunFragment"
-            android:id="@+id/f1"
-            tools:layout="@layout/fragment_sun" />
+    <!--<fragment-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:name="com.example.astroweather.SunFragment"-->
+            <!--android:id="@+id/f1"-->
+            <!--tools:layout="@layout/fragment_sun" />-->
 
-    <fragment
-            android:id="@+id/f2"
+    <!--<fragment-->
+            <!--android:id="@+id/f2"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:name="com.example.astroweather.MoonFragment"-->
+            <!--tools:layout="@layout/fragment_moon" />-->
+
+    <android.support.v4.view.ViewPager
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:name="com.example.astroweather.MoonFragment"
-            tools:layout="@layout/fragment_moon" />
+            android:layout_height="match_parent"
+            android:id="@+id/tabletPager"
+    />
 
 </LinearLayout>
