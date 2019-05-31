@@ -32,7 +32,7 @@ class Utils {
 
         fun loadFromSharedPreferences(){
             var gson: Gson = Gson()
-            var json: String = sharedPreferences!!.getString("favcities",null)
+            var json: String? = sharedPreferences!!.getString("favcities",null)
             if(json!=null){
                 val type = object : TypeToken<ArrayList<CityData>>() {}.type
                 var listToConfig: List<CityData> = gson.fromJson(json,type)

@@ -1,33 +1,21 @@
 package com.example.astroweather
 
 import android.content.Context
-import android.content.Intent
-import android.os.AsyncTask
-import android.support.v7.app.AppCompatActivity
+import android.content.SharedPreferences
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
-import java.text.SimpleDateFormat
-import java.util.*
-import android.content.DialogInterface
-import android.content.SharedPreferences
-import android.support.v7.app.AlertDialog
-import android.view.View
-import android.net.NetworkInfo
-import android.net.ConnectivityManager
 import android.widget.Toast
 import org.joda.time.DateTime
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.text.DateFormat
-import org.joda.*
 import org.joda.time.Days
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -124,6 +112,7 @@ class MainActivity : AppCompatActivity() {
         Utils.sharedPreferences = sharedPreferences
         Config.firstUsage = sharedPreferences!!.getBoolean("firstUsage",true)
         if(Config.firstUsage){
+            createFavListCity()
             Toast.makeText(this,"FIRSTUSAGE",Toast.LENGTH_LONG).show()
             val editor = sharedPreferences!!.edit()
             editor.putString("updateDate",Config.updateDate)
@@ -131,8 +120,6 @@ class MainActivity : AppCompatActivity() {
             editor.apply()
             Utils.saveToSharedPreferences()
         }
-
-        createFavListCity()
 
         var isTablet : Boolean = resources.getBoolean(R.bool.isTablet)
         if(!isTablet){
