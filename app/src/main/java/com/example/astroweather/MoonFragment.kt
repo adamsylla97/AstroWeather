@@ -160,13 +160,8 @@ class MoonFragment : Fragment() {
         val sdf: SimpleDateFormat = SimpleDateFormat("dd.M.yyyy HH:mm:ss")
         val currentDate = sdf.format(Date())
 
-        Log.i("SYNODIC DAY","INFO")
-        Log.i("actualTime moon", newMoon)
-        Log.i("actualTime", currentDate)
-
         var tempList: List<String>
         tempList = newMoon.split(" ",".")
-        Log.i("tempList",tempList[0]+ " " + tempList[1] + " " + tempList[2])
         var start: DateTime = DateTime(tempList[2].toInt(),tempList[1].toInt(),tempList[0].toInt(),0,0,0,0)
         tempList = currentDate.split(" ",".")
         var end: DateTime = DateTime(tempList[2].toInt(),tempList[1].toInt(),tempList[0].toInt(),0,0,0,0)

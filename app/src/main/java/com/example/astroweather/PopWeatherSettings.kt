@@ -19,7 +19,6 @@ class PopWeatherSettings: AppCompatDialogFragment() {
     lateinit var unitsSwitch: Switch
     var listOfCities = ArrayList<CityData>()
     var listOfCityNames = ArrayList<String>()
-    var refreshRate: Int = 0
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         var builder: AlertDialog.Builder = AlertDialog.Builder(activity)
@@ -53,8 +52,6 @@ class PopWeatherSettings: AppCompatDialogFragment() {
                 }
 
                 Config.shouldUpdate = true
-                Config.refreshRate = refreshRate
-                Log.i("config refresh",Config.refreshRate.toString())
 
                 if(Config.isConnected){
                     Utils.setupSharedPreferences()

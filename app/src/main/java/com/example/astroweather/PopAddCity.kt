@@ -40,10 +40,16 @@ class PopAddCity: AppCompatDialogFragment() {
                 var name = nameCity.text.toString()
                 var latitude = latitudeCity.text.toString().toDouble()
                 var longitude = longitudeCity.text.toString().toDouble()
-                Utils.loadFromSharedPreferences()
-                var tempCity = CityData(name,longitude,latitude)
-                addCityToList(tempCity)
-                Toast.makeText(view.context,"city added",Toast.LENGTH_LONG).show()
+
+                //security
+                if(!((longitude < -180 || longitude > 180) && (latitude < -90 || latitude > 90))){
+                    Utils.loadFromSharedPreferences()
+                    var tempCity = CityData(name,longitude,latitude)
+                    addCityToList(tempCity)
+                    Toast.makeText(view.context,"city added",Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(view.context, "ERROR longitude < -180 || longitude > 180 && latitude < -90 || latitude > 90",Toast.LENGTH_LONG).show()
+                }
             })
 
         nameCity = view.findViewById(R.id.nameCity)
